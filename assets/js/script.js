@@ -1,1 +1,1 @@
-alert("alert in js...");
+console.log("alert in js...");
