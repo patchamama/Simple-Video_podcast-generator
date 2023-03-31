@@ -19,3 +19,38 @@ let data = [
 
 console.log(data);
 alert(data[0].path+"/"+data[0].images[0]);
+
+//Select div with images/audios to insert content
+let vimgnode = document.getElementById("images");
+let vaudnode = document.getElementById("audios");
+
+//Init images/audios html vars...
+let vimghtml = "";
+let vaudhtml = "";
+for (let a=0; a<data.length; a++) {
+    let vdata = data[a];
+    let vpath = vdata.path;  //Path to the images/audios
+    
+    //Show images in the page
+    for (let i=0; i<vdata.images.length; i++) {
+        vimghtml += `
+        <img src="${vpath/vdata.images[i]}">
+        `;
+        console.log(vimghtml);
+        if (i>0) { vimghtml += "<hr>"; }
+    }
+
+    //Show audios in the page
+    vaudhtml += '<select name="audiolist" id="audiolist">';
+    for (let i=0; i<vdata.audios.length; i++) {
+        vaudhtml += `
+            <option value="${vpath/vdata.audios[i]}">${vdata.audios[i]}</option>
+        `;
+        console.log(vaudhtml);
+    }
+    vaudhtml += "</select>";
+}
+
+vimgnode.innerHTML = vimghtml;
+vaudnode.innerHTML = vaudhtml;
+

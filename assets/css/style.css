@@ -9,7 +9,13 @@
     border-radius1: 50%;
     letter-spacing: 3px;
     padding: 20px;
+}
 
+.audio {
+    width: 150px;
+    float: left;
+    height: auto;
+    
 }
 
 .circle-shadow a {
