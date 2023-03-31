@@ -31,7 +31,7 @@
             <a href="#images-panel">
                 <span class="circle-shadow">
                     <i class="fa-solid fa-images"></i>
-                    Image
+                    Images
                 </span>
             </a>  
 
@@ -69,8 +69,9 @@
 
         <div id="preview-panel">
             <i class="fa-solid fa-photo-film"></i>  
-            <div class="img-preview"><img src='assets/images/No_image_available.svg.png'></div>		
+            <div class="img-preview"><img id="imgtag" src="assets/images/No_image_available.svg.png"></div>		
 		    <audio id="audio-preview" src="" ontimeupdate="updateTrackTime(this);" controls autoplay></audio>
+            <div class="imgs-selected"></div>
         </div>
 
         <div id="result-panel">

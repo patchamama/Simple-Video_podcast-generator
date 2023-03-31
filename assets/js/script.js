@@ -1,7 +1,5 @@
-console.log("alert in js...");
 
-
-
+//Initialization of variables
 let data = [
     { 
         path: "doc/example1",
@@ -19,12 +17,12 @@ let data = [
     }
 ];
 
-console.log(data);
-console.log(data[0].path+"/"+data[0].images[0]);
+let vplayerPreview = document.getElementById("audio-preview");
+let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0];
 
-
+//Update the panels with image (left) and audios
 function setDataInHtml(datapos) {
-    resetPreview();
+    resetPreview();  //Reset all the images and audios preselected...
     let vdata = data[datapos];
     let vpath = vdata.path;  //Path to the images/audios
 
@@ -58,39 +56,60 @@ function setDataInHtml(datapos) {
     document.getElementById("audios-panel").innerHTML = vaudhtml;
 }
 
-//Reset the Preview info without audio and images when the dataset is changed
+//Reset the Preview info without audio and images when the complete dataset is changed
 function resetPreview() {
     //Reset the player > no audio
-    vplayer = document.getElementById("audio-preview");
-    vplayer.stop;
-    vplayer.src = "";    
+    vplayerPreview.stop;
+    vplayerPreview.src = "";    
 
     //Reset the image (no image available)
-    document.getElementsByClassName("img-preview")[0].innerHTML = "<img src='assets/images/No_image_available.svg.png'>";
+    vimagePreviewDiv.innerHTML = "<img src='assets/images/No_image_available.svg.png'>";
+
+    //Reset the mini-image index on bottom from the preview-panel
+    document.getElementsByClassName("imgs-selected")[0].innerHTML = "";
 }
 
+
+//Update the image in the preview-panel after select image in the list of the left panel
 function imagenow(vsrc) {
-    if (document.getElementById("audio-preview").src.indexOf(".mp3") > 0) {
-        document.getElementsByClassName("img-preview")[0].innerHTML = "<img src='"+vsrc+"'></img>";
+    vtime = vplayerPreview.currentTime;
+    if (vplayerPreview.src.indexOf(".mp3") > 0) {
+        vimagePreviewDiv.innerHTML = "<img alt='"+vsrc+' at '+vtime+"secs.' src='"+vsrc+"'>";
         //document.getElementById(audiolist).focus();
         
+
+        //Insert the image + position in the mini-image index on bottom
+        document.getElementsByClassName("imgs-selected")[0].innerHTML += `
+            <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
+            <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
+            </a>`;
+         
     } else {
         alert("Select first a audio file...");
     }
 }
 
-function playnow(vsrc) {
-    vplayer = document.getElementById("audio-preview");
-    vplayer.src = vsrc;
-    vplayer.play;
+//Show the image and audio position after click the mini-image in the preview-panel
+function updateImageAt(vimage, vtime) {
+    vimagePreviewDiv.innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
+    //vplayerPreview.currentTime = vtime;
+    document.getElementById("audio-preview").currentTime = vtime;
 }
 
+//Play the audio selected in the listbox
+function playnow(vsrc) {
+    vplayerPreview.src = vsrc;
+    vplayerPreview.play;
+}
+
+//Action to be execute in one time?
 function updateTrackTime(vplayer) {
     vaudiotime=vplayer.currentTime;
-    console.log(vaudiotime);
+    //console.log(vaudiotime);
 }
 
-
+//==================================================
+// Main code to be executed after functions declarations
 if (data.length > 0) {
     setDataInHtml(0);
     let vexampleHtml = '<select onchange="setDataInHtml(this.value)">';

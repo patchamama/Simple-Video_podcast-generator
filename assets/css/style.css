@@ -86,6 +86,16 @@ html {
     width: auto;
 }
 
+.imgs-selected {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.imgs-selected img {
+    height: 50px;
+    width: auto;
+    padding: 0 2px;
+}
+
 #audio-preview {
     width: 800px;
 }
