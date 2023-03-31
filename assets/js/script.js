@@ -18,4 +18,4 @@ let data = [
 ];
 
 console.log(data);
-alert(data[0].path);
+alert(data[0].path+"/"+data[0].images[0]);
