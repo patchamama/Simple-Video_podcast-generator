@@ -86,11 +86,11 @@ html {
     width: auto;
 }
 
-.imgs-selected {
+.imgs-selected1 {
     overflow-x: auto;
     white-space: nowrap;
 }
-.imgs-selected img {
+.imgs-selected1 img {
     height: 50px;
     width: auto;
     padding: 0 2px;
