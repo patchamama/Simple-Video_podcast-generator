@@ -32,7 +32,9 @@ function setDataInHtml(datapos) {
     let vimghtml = "";
     for (let i=0; i<vdata.images.length; i++) {
         vimghtml += `
+        <a href="#" title="${vdata.images[i]}" onclick="imagenow('${vpath}/${vdata.images[i]}')">
         <img src="${vpath}/${vdata.images[i]}">
+        </a>
         <hr>
         `;
         console.log(vimghtml);
@@ -56,10 +58,25 @@ function setDataInHtml(datapos) {
     document.getElementById("audios-panel").innerHTML = vaudhtml;
 }
 
+//Reset the Preview info without audio and images when the dataset is changed
 function resetPreview() {
+    //Reset the player > no audio
     vplayer = document.getElementById("audio-preview");
     vplayer.stop;
     vplayer.src = "";    
+
+    //Reset the image (no image available)
+    document.getElementsByClassName("img-preview")[0].innerHTML = "<img src='assets/images/No_image_available.svg.png'>";
+}
+
+function imagenow(vsrc) {
+    if (document.getElementById("audio-preview").src.indexOf(".mp3") > 0) {
+        document.getElementsByClassName("img-preview")[0].innerHTML = "<img src='"+vsrc+"'></img>";
+        //document.getElementById(audiolist).focus();
+        
+    } else {
+        alert("Select first a audio file...");
+    }
 }
 
 function playnow(vsrc) {
