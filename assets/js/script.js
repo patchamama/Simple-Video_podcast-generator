@@ -24,6 +24,7 @@ console.log(data[0].path+"/"+data[0].images[0]);
 
 
 function setDataInHtml(datapos) {
+    resetPreview();
     let vdata = data[datapos];
     let vpath = vdata.path;  //Path to the images/audios
 
@@ -38,10 +39,13 @@ function setDataInHtml(datapos) {
     }
 
     //Show audios in the page
-    let vaudhtml = '<i class="fa-solid fa-microphone-lines"></i> <select name="audiolist" id="audiolist">';
+    let vaudhtml = `
+        <i class="fa-solid fa-microphone-lines"></i>
+        <select name="audiolist" id="audiolist" onchange="playnow(this.value)">
+            <option value="">Select a audio...</option>`;
     for (let i=0; i<vdata.audios.length; i++) {
         vaudhtml += `
-            <option value="${vpath}/${vdata.images[i]}">${vdata.audios[i]}</option>
+            <option value="${vpath}/${vdata.audios[i]}">${vdata.audios[i]}</option>
         `;
         console.log(vaudhtml);
     }
@@ -50,6 +54,23 @@ function setDataInHtml(datapos) {
     //Select div with images/audios to insert content
     document.getElementById("images-panel").innerHTML = vimghtml;
     document.getElementById("audios-panel").innerHTML = vaudhtml;
+}
+
+function resetPreview() {
+    vplayer = document.getElementById("audio-preview");
+    vplayer.stop;
+    vplayer.src = "";    
+}
+
+function playnow(vsrc) {
+    vplayer = document.getElementById("audio-preview");
+    vplayer.src = vsrc;
+    vplayer.play;
+}
+
+function updateTrackTime(vplayer) {
+    vaudiotime=vplayer.currentTime;
+    console.log(vaudiotime);
 }
 
 

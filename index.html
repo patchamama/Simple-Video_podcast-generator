@@ -70,7 +70,7 @@
         <div id="preview-panel">
             <i class="fa-solid fa-photo-film"></i>  
             <div class="img-preview"><img src='assets/images/No_image_available.svg.png'></div>		
-		    <audio id="audio-preview" src="" controls autoplay></audio>
+		    <audio id="audio-preview" src="" ontimeupdate="updateTrackTime(this);" controls autoplay></audio>
         </div>
 
         <div id="result-panel">
