@@ -1,5 +1,7 @@
 console.log("alert in js...");
 
+
+
 let data = [
     { 
         path: "doc/example1",
@@ -20,7 +22,8 @@ let data = [
 console.log(data);
 console.log(data[0].path+"/"+data[0].images[0]);
 
-function getDataInHtml(datapos) {
+
+function setDataInHtml(datapos) {
     let vdata = data[datapos];
     let vpath = vdata.path;  //Path to the images/audios
 
@@ -45,16 +48,18 @@ function getDataInHtml(datapos) {
     vaudhtml += "</select>";
 
     //Select div with images/audios to insert content
-    let vimgnode = document.getElementById("images");
-    let vaudnode = document.getElementById("audios");
-    vimgnode.innerHTML = vimghtml;
-    vaudnode.innerHTML = vaudhtml;
+    document.getElementById("images-panel").innerHTML = vimghtml;
+    document.getElementById("audios-panel").innerHTML = vaudhtml;
 }
 
 
-getDataInHtml(0);
+if (data.length > 0) {
+    setDataInHtml(0);
+    let vexampleHtml = '<select onchange="setDataInHtml(this.value)">';
+    for (let a=0; a<data.length; a++) {
+        vexampleHtml += (a === 0) ? '<option selected value="'+(a)+'">'+(data[a].path)+'</option>' : '<option value="'+(a)+'">'+(data[a].path)+'</option>';
+        }
+    vexampleHtml += "</select>";
+    document.getElementById("examples-panel").innerHTML = vexampleHtml;
+}
 
-for (let a=0; a<data.length; a++) {
-    let vdata = data[a];
-    //getDataInHtml(a);
-    }

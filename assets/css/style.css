@@ -19,31 +19,44 @@ html {
     text-decoration: none;
 }
 
-.logo {
-
+#logo-panel {
+    border: 1px solid;
 }
-.menu {
-
-}
-
-.audio {
-
+#menu-panel {
+    border: 1px solid;
 }
 
-.images {
-    width: 150px;
+#images-panel {
+    border: 1px solid;
+}
+#images-panel img {
+    width: 100%;
+}
+
+.left-panel {
+    border: 1px solid;
+    width: 15%;
     float: left;
-    border-right: 1px solid #666;
-    white-space: nowrap flex-grow: 1;
-    grid-row-end: 6;
-    overflow-x: hidden;
-    height: 550px;
+    overflow: auto;
+    max-height: 100vh;
 }
 
-.preview {
+.right-panel {
+    border: 1px solid;
     float: right;
+    width: 70%;    
 }
 
-.result {
+#audio-panel {
+    border: 1px solid;
+}
 
+#preview-panel {
+    border: 1px solid;
+    text-align: center;
+}
+
+#result-panel {
+    border: 1px solid;
+    text-align: center;
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,62 +11,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Montserrat:wght@300&display=swap" rel="stylesheet">
    
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <title>Simple Video-podcast generator</title>
 </head>
 <body>
-    <div class="logo">
-        <h1>
-            Simple video-podcast generator
-        </h1>
+    <div id="header">
+        <div class="logo-panel">
+            <h1>
+                Simple video-podcast generator
+            </h1>
+        </div>
+        <div class="menu-panel">
+            <a href="#audios-panel">
+                <span class="circle-shadow">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    Audio
+                </span>
+            </a> 
+            <span class="less-size"><i class="fa-solid fa-plus"></i></span>
+            <a href="#images-panel">
+                <span class="circle-shadow">
+                    <i class="fa-solid fa-images"></i>
+                    Image
+                </span>
+            </a>  
+
+            <span class="less-size"><i class="fa-solid fa-right-long"></i></span>
+
+            <a href="#preview-panel">
+                <span class="circle-shadow">
+                    <i class="fa-solid fa-photo-film"></i>
+                    Preview
+                </span>
+            </a>  
+            <span class="less-size"><i class="fa-solid fa-plus"></i></span>
+            <a href="#result-panel">
+                <span class="circle-shadow">
+                    <i class="fa-solid fa-terminal"></i>
+                    CommandLine result
+                </span>
+            </a> 
+        </div>
+        <br>
+        <hr />
     </div>
-    <div class="menu">
-        <a href="#audios">
-            <span class="circle-shadow">
-                <i class="fa-solid fa-microphone-lines"></i>
-                Audio
-            </span>
-        </a> 
-        <span class="less-size"><i class="fa-solid fa-plus"></i></span>
-        <a href="#images">
-            <span class="circle-shadow">
-                <i class="fa-solid fa-images"></i>
-                Image
-            </span>
-        </a>  
-
-        <span class="less-size"><i class="fa-solid fa-right-long"></i></span>
-
-        <a href="#preview">
-            <span class="circle-shadow">
-                <i class="fa-solid fa-photo-film"></i>
-                Preview
-            </span>
-        </a>  
-        <span class="less-size"><i class="fa-solid fa-plus"></i></span>
-        <a href="#result">
-            <span class="circle-shadow">
-                <i class="fa-solid fa-terminal"></i>
-                CommandLine result
-            </span>
-        </a> 
-    </div>
-
-    <hr>
-
-    <div id="audios">
-        <i class="fa-solid fa-microphone-lines"></i> 
-    </div>
-
-    <div id="images">
-        <i class="fa-solid fa-images"></i> 
+    
+    <div id="examples-panel">
+        Examples
     </div>
 
-    <div id="preview">
-        <i class="fa-solid fa-photo-film"></i> 
+    <div id="images-panel" class="left-panel">
+        <i class="fa-solid fa-images"></i> Images
     </div>
 
-    <div id="result">
-        <i class="fa-solid fa-terminal"></i>
+    <div class="right-panel">
+        <div id="audios-panel">
+            <i class="fa-solid fa-microphone-lines"></i> Audios
+        </div>
+
+
+        <div id="preview-panel">
+            <i class="fa-solid fa-photo-film"></i>  Preview
+        </div>
+
+        <div id="result-panel">
+            <i class="fa-solid fa-terminal"></i> Result
+        </div>
     </div>
 
     <!-- Script ref. to font-awesome -->
