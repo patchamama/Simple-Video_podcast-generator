@@ -18,7 +18,8 @@ let data = [
 ];
 
 let vplayerPreview = document.getElementById("audio-preview");
-let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0];
+let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
+let vimagePreviewSelectedDiv = document.getElementsByClassName("imgs-selected")[0];  //mini-images index
 
 //Update the panels with image (left) and audios
 function setDataInHtml(datapos) {
@@ -78,7 +79,8 @@ function imagenow(vsrc) {
         //document.getElementById(audiolist).focus();
         
         //Insert the image + position in the mini-image index on bottom
-        vimagePreviewDiv.innerHTML += `
+        //document.getElementsByClassName("imgs-selected")[0]
+        vimagePreviewSelectedDiv.innerHTML += `
             <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
             <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
             </a>`;
@@ -93,7 +95,7 @@ function updateImageAt(vimage, vtime) {
     vimagePreviewDiv.innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     //vplayerPreview.currentTime = vtime;
     document.getElementById("audio-preview").currentTime = vtime;
-    //document.getElementsByClassName("img-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
+    //document.getElementsByClassName("imgs-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
 }
 
 //Play the audio selected in the listbox
