@@ -3,27 +3,46 @@ html {
     width: 100%;
   }
 
+#header {
+    border: 1px solid;
+    height: 20vh;
+    width: 100%;
+    background: url('../images/cover.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.logo-panel {
+    color: #25262e;
+    font-size: 25px;
+    font-style: italic;
+    text-align: center;
+}
+
+.menu-panel {
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 3vh;
+    text-align: center;
+}
+
 .less-size {
     font-size: 80%;
+    letter-spacing: 2px;
+    padding: 0 1px 0 2px;
 }
 
 .circle-shadow {
-    background-color: rgba(193, 90, 26, 0.647);
-    border: 2px solid #000000;
-    border-radius1: 50%;
+    background-color: rgb(212 162 109 / 18%);
+    color: rgb(41 40 49);
+    border-radius: 50%;
     letter-spacing: 3px;
     padding: 20px;
 }
 
-.circle-shadow a {
+.menu-panel a {
     text-decoration: none;
-}
-
-#logo-panel {
-    border: 1px solid;
-}
-#menu-panel {
-    border: 1px solid;
 }
 
 #images-panel {
@@ -33,18 +52,19 @@ html {
     width: 100%;
 }
 
-.left-panel {
+#examples-panel {
     border: 1px solid;
+}
+
+.left-panel {
     width: 15%;
     float: left;
     overflow: auto;
-    max-height: 100vh;
+    max-height: 83vh;
 }
 
 .right-panel {
-    border: 1px solid;
-    float: right;
-    width: 70%;    
+    border: 1px solid;   
 }
 
 #audio-panel {
