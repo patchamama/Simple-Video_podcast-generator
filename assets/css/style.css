@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+    width: 100%;
+  }
 
 .less-size {
     font-size: 80%;
@@ -11,13 +15,35 @@
     padding: 20px;
 }
 
-.audio {
-    width: 150px;
-    float: left;
-    height: auto;
-    
-}
-
 .circle-shadow a {
     text-decoration: none;
+}
+
+.logo {
+
+}
+.menu {
+
+}
+
+.audio {
+
+}
+
+.images {
+    width: 150px;
+    float: left;
+    border-right: 1px solid #666;
+    white-space: nowrap flex-grow: 1;
+    grid-row-end: 6;
+    overflow-x: hidden;
+    height: 550px;
+}
+
+.preview {
+    float: right;
+}
+
+.result {
+
 }

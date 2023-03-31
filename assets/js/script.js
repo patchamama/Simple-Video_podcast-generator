@@ -18,39 +18,43 @@ let data = [
 ];
 
 console.log(data);
-alert(data[0].path+"/"+data[0].images[0]);
+console.log(data[0].path+"/"+data[0].images[0]);
 
-//Select div with images/audios to insert content
-let vimgnode = document.getElementById("images");
-let vaudnode = document.getElementById("audios");
-
-//Init images/audios html vars...
-let vimghtml = "";
-let vaudhtml = "";
-for (let a=0; a<data.length; a++) {
-    let vdata = data[a];
+function getDataInHtml(datapos) {
+    let vdata = data[datapos];
     let vpath = vdata.path;  //Path to the images/audios
-    
+
     //Show images in the page
+    let vimghtml = "";
     for (let i=0; i<vdata.images.length; i++) {
         vimghtml += `
-        <img src="${vpath/vdata.images[i]}">
+        <img src="${vpath}/${vdata.images[i]}">
+        <hr>
         `;
         console.log(vimghtml);
-        if (i>0) { vimghtml += "<hr>"; }
     }
 
     //Show audios in the page
-    vaudhtml += '<select name="audiolist" id="audiolist">';
+    let vaudhtml = '<select name="audiolist" id="audiolist">';
     for (let i=0; i<vdata.audios.length; i++) {
         vaudhtml += `
-            <option value="${vpath/vdata.audios[i]}">${vdata.audios[i]}</option>
+            <option value="${vpath}/${vdata.images[i]}">${vdata.audios[i]}</option>
         `;
         console.log(vaudhtml);
     }
     vaudhtml += "</select>";
+
+    //Select div with images/audios to insert content
+    let vimgnode = document.getElementById("images");
+    let vaudnode = document.getElementById("audios");
+    vimgnode.innerHTML = vimghtml;
+    vaudnode.innerHTML = vaudhtml;
 }
 
-vimgnode.innerHTML = vimghtml;
-vaudnode.innerHTML = vaudhtml;
 
+getDataInHtml(0);
+
+for (let a=0; a<data.length; a++) {
+    let vdata = data[a];
+    //getDataInHtml(a);
+    }
