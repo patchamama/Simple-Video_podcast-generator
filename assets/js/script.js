@@ -38,7 +38,7 @@ function setDataInHtml(datapos) {
     }
 
     //Show audios in the page
-    let vaudhtml = '<select name="audiolist" id="audiolist">';
+    let vaudhtml = '<i class="fa-solid fa-microphone-lines"></i> <select name="audiolist" id="audiolist">';
     for (let i=0; i<vdata.audios.length; i++) {
         vaudhtml += `
             <option value="${vpath}/${vdata.images[i]}">${vdata.audios[i]}</option>
