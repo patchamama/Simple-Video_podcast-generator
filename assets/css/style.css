@@ -49,6 +49,7 @@ html {
 #images-panel {
     border: 1px solid;
 }
+
 #images-panel img {
     width: 100%;
 }
@@ -111,4 +112,8 @@ html {
 
 .indeximg-duration {
     color: #98630d;
+}
+
+.indeximg-selected {
+    border: 2px dotted #98630d;
 }

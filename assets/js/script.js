@@ -138,6 +138,9 @@ function showAllImageIndex() {
     let vtimedifToPrint = "";
     let vsrc = "";
     let vtime = 0;
+    let vimgSelectedNr = getImgIndexActiveAtCurrentTime();
+    let vcurrentImgSelectedHTML = "";
+
     for (let a=0; a< imagesSelected.length; a++) {
         vsrc = imagesSelected[a].name;
         vtime = imagesSelected[a].time;
@@ -152,14 +155,13 @@ function showAllImageIndex() {
                     <p>-${vtimedifToPrint}-</p>
                 </div>`;
         }
-        //Insert the image + position in the mini-image index on bottom
+        vcurrentImgSelectedHTML = (a===vimgSelectedNr) ? "indeximg-selected" : "";
 
+        //Insert the image + position in the mini-image index on bottom
         vbarHTML += `
             ${vtimedifDiv}
-            <div class="indeximg">
-            <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
+            <div onclick="updateImageAt(this, '${vsrc}', ${vtime})" class="indeximg indeximgstrict ${vcurrentImgSelectedHTML}">
             <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
-            </a>
             <br>
             ${vtimeshow}
             </div>`;  
@@ -195,12 +197,15 @@ function imagenow(vsrc) {
                 } 
                 //Insert the image + position in the mini-image index on bottom
                 //document.getElementsByClassName("imgs-selected")[0]
+
+                let vtempselected = document.getElementsByClassName('indeximg-selected');
+                while(vtempselected.length > 0){
+                    vtempselected[0].classList.remove('indeximg-selected');
+                }
                 vimagePreviewSelectedDiv.innerHTML += `
                     ${vtimedifDiv}
-                    <div class="indeximg">
-                    <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
+                    <div onclick="updateImageAt(this, '${vsrc}', ${vtime})" class="indeximg indeximgstrict indeximg-selected">
                     <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
-                    </a>
                     <br>
                     ${vtimeshow}
                     </div>`;           
@@ -216,7 +221,12 @@ function imagenow(vsrc) {
 }
 
 //Show the image and audio position after click the mini-image in the preview-panel
-function updateImageAt(vimage, vtime) {
+function updateImageAt(velem, vimage, vtime) {
+    let vtempselected = document.getElementsByClassName('indeximg-selected');
+    while(vtempselected.length > 0){
+        vtempselected[0].classList.remove("indeximg-selected");
+    }
+    velem.classList.add("indeximg-selected");
     //alert("updateimageat "+vimage+" "+vtime);
     vimagePreviewDiv.innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     //vplayerPreview.currentTime = vtime;
@@ -232,7 +242,22 @@ function playnow(vsrc) {
 }
 
 //Check if the time of the player correspond with a new imag
-function SearchAndUpdateImgAtNewTime(vplayer) {
+function getImgIndexActiveAtCurrentTime() {
+    let vaudiotime=vplayerPreview.currentTime;
+    let vtimeNext = 0;
+    let vtime = 0;
+    for (let a=0; a < imagesSelected.length; a++) {
+        vtime = imagesSelected[a].time;
+        vtimeNext = (a===imagesSelected.length-1) ? 9999999 : imagesSelected[a+1].time; 
+        if ( (vaudiotime>=vtime) && (vaudiotime < vtimeNext) ) {
+            return a;
+        }
+    }   
+    return 0;
+}
+
+//Check if the time of the player correspond with a new imag
+function searchAndUpdateImgAtNewTime(vplayer) {
     let vaudiotime=vplayer.currentTime;
     let vtimeNext = 0;
     let vtime = 0;
@@ -240,13 +265,14 @@ function SearchAndUpdateImgAtNewTime(vplayer) {
         vtime = imagesSelected[a].time;
         vtimeNext = (a===imagesSelected.length-1) ? 9999999 : imagesSelected[a+1].time; 
         if ( (vaudiotime>=vtime) && (vaudiotime < vtimeNext) ) {
-            let vimage = imagesSelected[a].name;
-            updateImageAt(vimage, vtime);
+            let vimage = imagesSelected[a].name;           
+            let vtempselected = document.getElementsByClassName('indeximgstrict')[a];
+
+            updateImageAt(vtempselected, vimage, vtime);
             lastImagesSelectedShowed = a;
             break;
         }
-    }
-    
+    }   
 }
 
 //Action to be execute in one time?
@@ -257,11 +283,11 @@ function updateTrackTime(vplayer) {
         if (lastImagesSelectedShowed < (imagesSelected.length-1) )  {
             if ( (vaudiotime < imagesSelected[lastImagesSelectedShowed].time) ||  
                 (vaudiotime > imagesSelected[lastImagesSelectedShowed+1].time) ) {
-                    SearchAndUpdateImgAtNewTime(vplayer);
+                    searchAndUpdateImgAtNewTime(vplayer);
                 } 
         } else {  //The last image inserted is showed now!
             if (vaudiotime < imagesSelected[lastImagesSelectedShowed].time) {
-                SearchAndUpdateImgAtNewTime(vplayer);
+                searchAndUpdateImgAtNewTime(vplayer);
             }
         }
     }   
