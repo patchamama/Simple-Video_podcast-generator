@@ -16,6 +16,7 @@ let data = [
                  "image011.jpg","image012.jpg","image013.jpg"]
     }
 ];
+let imagesSelected = []; // Store the images selected in the preview {name:"", time:0}
 
 let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
@@ -70,24 +71,132 @@ function resetPreview() {
     document.getElementsByClassName("imgs-selected")[0].innerHTML = "";
 }
 
+//Convert timestamp in String(hh:mm:ss) 
+function getTimePrint(vtime) {
+    vtime = Math.trunc(vtime);
+    let hours = Math.floor(vtime % (3600*24) / 3600);
+    let mins = Math.floor(vtime % 3600 / 60);
+    let secs = Math.floor(vtime % 60);
+    
+    mins = (mins<=9) ? "0"+mins.toString() : mins.toString();
+    secs = (secs<=9) ? "0"+secs.toString() : secs.toString();
+    if (hours > 0) {
+        hours = (hours<=9) ? "0"+hours.toString() : hours.toString();
+        return hours.toString()+":"+mins.toString()+":"+secs.toString();
+    } else {  
+        return mins.toString()+":"+secs.toString();        
+    }
+}
+
+//Insert in order of time every image in the var imagesSelected
+// and return if is inserted at the end
+function insertImgSelectedInTime(vsrc, vtime) {
+    if (imagesSelected.length>0) { 
+        let lastimginserted = imagesSelected[imagesSelected.length - 1];
+        if (vtime>lastimginserted.time) {
+            imagesSelected.push({name: vsrc, time: vtime});
+            return true;
+        } else {
+            for (let a=0; a < imagesSelected.length; a++) {
+                if (vtime < imagesSelected[a].time) {
+                    imagesSelected.splice(a,0,{name: vsrc, time: vtime})
+                 } else if (vtime === imagesSelected[a].time) {
+                    imagesSelected.splice(a,1,{name: vsrc, time: vtime})
+                } 
+            }      
+            showAllImageIndex();
+            return false;  
+        }  
+    } else {
+        vtime=0; //The first element begin at the begining > time=0...
+        imagesSelected.push({name: vsrc, time: vtime});
+        return true;
+    }   
+}
+
+//Print all the image-index bar
+function showAllImageIndex() {
+    let vbarHTML = "";
+    let vtimedifDiv = "";
+    let vtimedif = 0;
+    let vtimeshow = "";
+    let vtimedifToPrint = "";
+    let vsrc = "";
+    let vtime = 0;
+    for (let a=0; a< imagesSelected.length; a++) {
+        vsrc = imagesSelected[a].name;
+        vtime = imagesSelected[a].time;
+        vtimeshow = (vtimedif===0) ? getTimePrint(0) : getTimePrint(vtime);
+        if (a===0) {  // is the firstelement?
+            vtimedifDiv = "";
+        } else {
+            vtimedif = Math.floor(imagesSelected[a].time) - Math.floor(imagesSelected[a-1].time);
+            vtimedifToPrint = getTimePrint(vtimedif);
+            vtimedifDiv = `
+                <div class="indeximg">
+                    <p>-${vtimedifToPrint}-</p>
+                </div>`;
+        }
+        //Insert the image + position in the mini-image index on bottom
+
+        vbarHTML += `
+            ${vtimedifDiv}
+            <div class="indeximg">
+            <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
+            <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
+            </a>
+            <br>
+            ${vtimeshow}
+            </div>`;  
+    } 
+    vimagePreviewSelectedDiv.innerHTML = vbarHTML;
+}
 
 //Update the image in the preview-panel after select image in the list of the left panel
 function imagenow(vsrc) {
     vtime = vplayerPreview.currentTime;
     if (vplayerPreview.src.indexOf(".mp3") > 0) {
+      
         vimagePreviewDiv.innerHTML = "<img alt='"+vsrc+' at '+vtime+"secs.' src='"+vsrc+"'>";
         //document.getElementById(audiolist).focus();
+       
+        //Save image selected in a var to control it... if there was selected images in different time
+        let vtimedifDiv = ""; // String with the value of the time between 2 images selected..
+        let vtimedif = (imagesSelected.length===0) ? 0 : (Math.floor(vtime) - Math.floor(imagesSelected[imagesSelected.length-1].time) );
         
-        //Insert the image + position in the mini-image index on bottom
-        //document.getElementsByClassName("imgs-selected")[0]
-        vimagePreviewSelectedDiv.innerHTML += `
-            <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
-            <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
-            </a>`;
-         
+        // > 0 is inserted after the last image time, < 0 is inserted before the last image inserted
+        //if ((vtimedif!==0) ||  (imagesSelected.length===0) ) { //if thereis time difference between the selected images or is the first image > insert the new image
+        if (true) {
+            let insertedAtTheEnd = insertImgSelectedInTime(vsrc, vtime);
+            if (insertedAtTheEnd) {
+                let vtimeshow = (vtimedif===0) ? getTimePrint(0) : getTimePrint(vtime);  //time of the image inserted
+                if (vtimedif>0) {  //is not the first element?
+                    let vtimedifToPrint = getTimePrint(vtimedif);
+                    vtimedifDiv = `
+                        <div class="indeximg">
+                            <p>+${vtimedifToPrint}+</p>
+                        </div>`;
+                } 
+                //Insert the image + position in the mini-image index on bottom
+                //document.getElementsByClassName("imgs-selected")[0]
+                vimagePreviewSelectedDiv.innerHTML += `
+                    ${vtimedifDiv}
+                    <div class="indeximg">
+                    <a href="#" onclick="updateImageAt('${vsrc}', ${vtime})">
+                    <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
+                    </a>
+                    <br>
+                    ${vtimeshow}
+                    </div>`;           
+            } else {  //insert image before the last inserted and reprint all the elements of images-index again...
+                showAllImageIndex();
+            }  
+        } 
+
     } else {
         alert("Select first a audio file...");
     }
+    //vplayerPreview.play; // When is selected one image, automatically play de audio...
 }
 
 //Show the image and audio position after click the mini-image in the preview-panel

@@ -100,3 +100,12 @@ html {
 #audio-preview {
     width: 800px;
 }
+
+.indeximg {
+    display: inline-block;
+    border: 1px solid;
+}
+
+.indeximg p {
+    margin: 0;
+}
