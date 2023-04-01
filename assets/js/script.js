@@ -74,6 +74,9 @@ function resetPreview() {
 
     imagesSelected = [];
     lastImagesSelectedShowed = 0;
+
+    let srcImagesDiv = document.getElementById('images-panel');
+    srcImagesDiv.scrollTop = 0;
 }
 
 //Convert timestamp in String(hh:mm:ss) 
@@ -228,6 +231,7 @@ function playnow(vsrc) {
     vplayerPreview.play;
 }
 
+//Check if the time of the player correspond with a new imag
 function SearchAndUpdateImgAtNewTime(vplayer) {
     let vaudiotime=vplayer.currentTime;
     let vtimeNext = 0;
