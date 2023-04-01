@@ -17,10 +17,12 @@ let data = [
     }
 ];
 let imagesSelected = []; // Store the images selected in the preview {name:"", time:0}
+let lastImagesSelectedShowed = 0;
 
 let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
 let vimagePreviewSelectedDiv = document.getElementsByClassName("imgs-selected")[0];  //mini-images index
+
 
 //Update the panels with image (left) and audios
 function setDataInHtml(datapos) {
@@ -91,6 +93,7 @@ function getTimePrint(vtime) {
 //Insert in order of time every image in the var imagesSelected
 // and return if is inserted at the end
 function insertImgSelectedInTime(vsrc, vtime) {
+    //alert("Insertimage "+vsrc+" "+vtime);
     if (imagesSelected.length>0) { 
         let lastimginserted = imagesSelected[imagesSelected.length - 1];
         if (vtime>lastimginserted.time) {
@@ -99,13 +102,18 @@ function insertImgSelectedInTime(vsrc, vtime) {
         } else {
             for (let a=0; a < imagesSelected.length; a++) {
                 if (vtime < imagesSelected[a].time) {
+                    //alert("splice 0");
                     imagesSelected.splice(a,0,{name: vsrc, time: vtime})
+                    showAllImageIndex();
+                    return false;  
                  } else if (vtime === imagesSelected[a].time) {
+                    //alert("splice 1");
                     imagesSelected.splice(a,1,{name: vsrc, time: vtime})
+                    showAllImageIndex();
+                    return false;  
                 } 
             }      
-            showAllImageIndex();
-            return false;  
+
         }  
     } else {
         vtime=0; //The first element begin at the begining > time=0...
@@ -116,6 +124,7 @@ function insertImgSelectedInTime(vsrc, vtime) {
 
 //Print all the image-index bar
 function showAllImageIndex() {
+    //alert("showallimage");
     let vbarHTML = "";
     let vtimedifDiv = "";
     let vtimedif = 0;
@@ -126,7 +135,7 @@ function showAllImageIndex() {
     for (let a=0; a< imagesSelected.length; a++) {
         vsrc = imagesSelected[a].name;
         vtime = imagesSelected[a].time;
-        vtimeshow = (vtimedif===0) ? getTimePrint(0) : getTimePrint(vtime);
+        vtimeshow = getTimePrint(vtime);
         if (a===0) {  // is the firstelement?
             vtimedifDiv = "";
         } else {
@@ -154,6 +163,7 @@ function showAllImageIndex() {
 
 //Update the image in the preview-panel after select image in the list of the left panel
 function imagenow(vsrc) {
+    //alert("Imagenow "+vsrc);
     vtime = vplayerPreview.currentTime;
     if (vplayerPreview.src.indexOf(".mp3") > 0) {
       
@@ -189,7 +199,7 @@ function imagenow(vsrc) {
                     ${vtimeshow}
                     </div>`;           
             } else {  //insert image before the last inserted and reprint all the elements of images-index again...
-                showAllImageIndex();
+                //showAllImageIndex();
             }  
         } 
 
@@ -201,6 +211,7 @@ function imagenow(vsrc) {
 
 //Show the image and audio position after click the mini-image in the preview-panel
 function updateImageAt(vimage, vtime) {
+    //alert("updateimageat "+vimage+" "+vtime);
     vimagePreviewDiv.innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     //vplayerPreview.currentTime = vtime;
     document.getElementById("audio-preview").currentTime = vtime;
@@ -213,9 +224,39 @@ function playnow(vsrc) {
     vplayerPreview.play;
 }
 
+function SearchAndUpdateImgAtNewTime(vplayer) {
+    let vaudiotime=vplayer.currentTime;
+    let vtimeNext = 0;
+    let vtime = 0;
+    for (let a=0; a < imagesSelected.length; a++) {
+        vtime = imagesSelected[a].time;
+        vtimeNext = (a===imagesSelected.length-1) ? 9999999 : imagesSelected[a+1].time; 
+        if ( (vaudiotime>=vtime) && (vaudiotime < vtimeNext) ) {
+            let vimage = imagesSelected[a].name;
+            updateImageAt(vimage, vtime);
+            lastImagesSelectedShowed = a;
+            break;
+        }
+    }
+    
+}
+
 //Action to be execute in one time?
 function updateTrackTime(vplayer) {
     vaudiotime=vplayer.currentTime;
+    //lastImagesSelectedShowed
+    if (imagesSelected.length>1) {
+        if (lastImagesSelectedShowed < (imagesSelected.length-1) )  {
+            if ( (vaudiotime < imagesSelected[lastImagesSelectedShowed].time) ||  
+                (vaudiotime > imagesSelected[lastImagesSelectedShowed+1].time) ) {
+                    SearchAndUpdateImgAtNewTime(vplayer);
+                } 
+        } else {  //The last image inserted is showed now!
+            if (vaudiotime < imagesSelected[lastImagesSelectedShowed].time) {
+                SearchAndUpdateImgAtNewTime(vplayer);
+            }
+        }
+    }   
     //console.log(vaudiotime);
 }
 
