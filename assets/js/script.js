@@ -71,6 +71,9 @@ function resetPreview() {
 
     //Reset the mini-image index on bottom from the preview-panel
     document.getElementsByClassName("imgs-selected")[0].innerHTML = "";
+
+    imagesSelected = [];
+    lastImagesSelectedShowed = 0;
 }
 
 //Convert timestamp in String(hh:mm:ss) 
@@ -142,7 +145,7 @@ function showAllImageIndex() {
             vtimedif = Math.floor(imagesSelected[a].time) - Math.floor(imagesSelected[a-1].time);
             vtimedifToPrint = getTimePrint(vtimedif);
             vtimedifDiv = `
-                <div class="indeximg">
+                <div class="indeximg indeximg-duration">
                     <p>-${vtimedifToPrint}-</p>
                 </div>`;
         }
@@ -183,7 +186,7 @@ function imagenow(vsrc) {
                 if (vtimedif>0) {  //is not the first element?
                     let vtimedifToPrint = getTimePrint(vtimedif);
                     vtimedifDiv = `
-                        <div class="indeximg">
+                        <div class="indeximg indeximg-duration">
                             <p>+${vtimedifToPrint}+</p>
                         </div>`;
                 } 
@@ -220,6 +223,7 @@ function updateImageAt(vimage, vtime) {
 
 //Play the audio selected in the listbox
 function playnow(vsrc) {
+    resetPreview(); //Reset the previews configuration
     vplayerPreview.src = vsrc;
     vplayerPreview.play;
 }

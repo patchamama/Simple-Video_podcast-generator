@@ -108,3 +108,7 @@ html {
 .indeximg p {
     margin: 0;
 }
+
+.indeximg-duration {
+    color: #98630d;
+}
