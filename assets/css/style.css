@@ -13,9 +13,10 @@ html {
     background-size: cover;
 }
 
-.logo-panel {
+.logo-panel h1 { 
+    margin: 2vh 0 4vh;
     color: #25262e;
-    font-size: 25px;
+    font-size: 38px;
     font-style: italic;
     text-align: center;
 }
@@ -23,7 +24,7 @@ html {
 .menu-panel {
     font-size: 25px;
     font-weight: 600;
-    margin-top: 3vh;
+    margin-top: 2.5vh;
     text-align: center;
 }
 
@@ -38,7 +39,7 @@ html {
     color: rgb(41 40 49);
     border-radius: 50%;
     letter-spacing: 3px;
-    padding: 20px;
+    padding: 20px; 
 }
 
 .menu-panel a {
