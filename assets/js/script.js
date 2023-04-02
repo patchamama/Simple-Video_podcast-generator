@@ -137,9 +137,9 @@ function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
     let vletfImages = document.getElementsByClassName("imgsLeftPanel");
     for (let a=0; a< vletfImages.length; a++) {
         if (vimagesSeletedArray.includes(vletfImages[a].src)) {
-            vletfImages[a].classList.add("img-selected");
+            vletfImages[a].classList.add("img-border-selected");
         } else {
-            vletfImages[a].classList.remove("img-selected");
+            vletfImages[a].classList.remove("img-border-selected");
         }
     }
 }
@@ -193,7 +193,7 @@ function imagenow(velem, vsrc) {
     //alert("Imagenow "+vsrc);
     vtime = vplayerPreview.currentTime;
     if (vplayerPreview.src.indexOf(".mp3") > 0) {
-        velem.classList.add("img-selected");
+        velem.classList.add("img-border-selected");
         vimagePreviewDiv.innerHTML = "<img alt='"+vsrc+' at '+vtime+"secs.' src='"+vsrc+"'>";
         //document.getElementById(audiolist).focus();
        

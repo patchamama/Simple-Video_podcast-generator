@@ -98,6 +98,13 @@ html {
     padding: 0 2px;
 }
 
+.img-border-selected {
+    border: 3px solid #98630d;
+    height: 40px;
+    width: auto;
+    padding: 0 2px;
+}
+
 #audio-preview {
     width: 800px;
 }
@@ -126,6 +133,3 @@ html {
     font-size: 40px;
 }
 
-.img-selected {
-    border: 3px solid #98630d;
-}
