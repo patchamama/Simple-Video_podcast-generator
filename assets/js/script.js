@@ -321,6 +321,26 @@ function searchAndUpdateImgAtNewTime(vplayer) {
     }   
 }
 
+
+//When clic in the preview-imag play or pause the audio...
+function changeAudioPlaying() {
+    if (vplayerPreview.paused) {
+        vplayerPreview.play();
+    } else {
+        vplayerPreview.pause();
+    }
+}
+
+//Update time position o the player
+function changePlayerTimePos(vinc) {
+    let newpos = vplayerPreview.currentTime + vinc;
+  if ( (newpos>0) && (newpos < vplayerPreview.duration) ) {
+        vplayerPreview.currentTime = newpos;
+    } else {
+        alert("The value is out of the range: "+newpos.toString());
+    }
+}
+
 //Action to be execute in one time?
 function updateTrackTime(vplayer) {
     vaudiotime=vplayer.currentTime;
