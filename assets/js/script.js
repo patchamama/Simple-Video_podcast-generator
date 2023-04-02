@@ -26,7 +26,7 @@ let vimagePreviewSelectedDiv = document.getElementsByClassName("imgs-selected")[
 
 //Update the panels with image (left) and audios
 function setDataInHtml(datapos) {
-    resetPreview();  //Reset all the images and audios preselected...
+    resetPreview(true);  //Reset all the images and audios preselected...
     let vdata = data[datapos];
     let vpath = vdata.path;  //Path to the images/audios
 
@@ -61,10 +61,13 @@ function setDataInHtml(datapos) {
 }
 
 //Reset the Preview info without audio and images when the complete dataset is changed
-function resetPreview() {
+function resetPreview(fullreset) {
     //Reset the player > no audio
     vplayerPreview.stop;
-    vplayerPreview.src = "";    
+    if (fullreset) {
+        vplayerPreview.src = "";
+    }
+        
 
     //Reset the image (no image available)
     vimagePreviewDiv.innerHTML = "<img src='assets/images/No_image_available.svg.png'>";
@@ -77,6 +80,8 @@ function resetPreview() {
 
     let srcImagesDiv = document.getElementById('images-panel');
     srcImagesDiv.scrollTop = 0;
+
+    document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i>';
 }
 
 //Convert timestamp in String(hh:mm:ss) 
@@ -208,7 +213,9 @@ function imagenow(vsrc) {
                     <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
                     <br>
                     ${vtimeshow}
-                    </div>`;           
+                    </div>`;   
+                let vtempselected1 = document.getElementsByClassName('indeximgstrict')[imagesSelected.length-1];
+                updateImageAt(vtempselected1, vsrc, vtime);        
             } else {  //insert image before the last inserted and reprint all the elements of images-index again...
                 //showAllImageIndex();
             }  
@@ -232,13 +239,53 @@ function updateImageAt(velem, vimage, vtime) {
     //vplayerPreview.currentTime = vtime;
     document.getElementById("audio-preview").currentTime = vtime;
     //document.getElementsByClassName("imgs-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
+    let vactions = `
+        | <button onclick="deleteCurrentImg();"><i class="fa-solid fa-trash-can"></i> Delete</button>
+        | <i class="fa-solid fa-up-down-left-right"></i> New position: <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="5">
+    `;
+
+    document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i> Image: '+vimage+vactions;
 }
 
 //Play the audio selected in the listbox
 function playnow(vsrc) {
-    resetPreview(); //Reset the previews configuration
+    resetPreview(true); //Reset the previews configuration
     vplayerPreview.src = vsrc;
     vplayerPreview.play;
+}
+
+//Change position of the image active +-
+function changeImgtimePos(velem) {
+    let vincpos = velem.value;
+    velem.value = 0;
+    if (!isNaN(vincpos)) {
+        let vcurrentImag = getImgIndexActiveAtCurrentTime();
+        let vincposval = parseFloat(vincpos);
+        let vsum = imagesSelected[vcurrentImag].time + vincposval;
+        if ( (vsum>=0) && (vsum<=vplayerPreview.duration) ) {
+            let vsrc = imagesSelected[vcurrentImag].name;
+            imagesSelected.splice(vcurrentImag,1);
+            insertImgSelectedInTime(vsrc, vsum);
+            vplayerPreview.currentTime = vsum;
+            imagesSelected[0].time = 0;
+            showAllImageIndex();
+        } else {
+            alert("The value is out of the range: "+vsum.toString());
+        }
+    }   
+}
+
+//delete the image active in preview-panel
+function deleteCurrentImg() {
+    if (imagesSelected.length===1) {
+        resetPreview(false);
+    } else {
+        let vcurrentImag = getImgIndexActiveAtCurrentTime();
+        imagesSelected.splice(vcurrentImag,1);
+        imagesSelected[0].time = 0; //Always the first Image will begin in the position 0 sec.
+        showAllImageIndex();
+    }
+
 }
 
 //Check if the time of the player correspond with a new imag
@@ -267,7 +314,6 @@ function searchAndUpdateImgAtNewTime(vplayer) {
         if ( (vaudiotime>=vtime) && (vaudiotime < vtimeNext) ) {
             let vimage = imagesSelected[a].name;           
             let vtempselected = document.getElementsByClassName('indeximgstrict')[a];
-
             updateImageAt(vtempselected, vimage, vtime);
             lastImagesSelectedShowed = a;
             break;

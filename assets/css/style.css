@@ -117,3 +117,7 @@ html {
 .indeximg-selected {
     border: 2px dotted #98630d;
 }
+
+.preview-info {
+    text-align: left;
+}
