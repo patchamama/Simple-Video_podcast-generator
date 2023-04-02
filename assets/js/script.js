@@ -34,7 +34,7 @@ function setDataInHtml(datapos) {
     let vimghtml = "";
     for (let i=0; i<vdata.images.length; i++) {
         vimghtml += `
-        <img onclick="imagenow('${vpath}/${vdata.images[i]}')" src="${vpath}/${vdata.images[i]}">
+        <img onclick="imagenow(this,'${vpath}/${vdata.images[i]}')" src="${vpath}/${vdata.images[i]}">
         </a>
         <hr>
         `;
@@ -175,11 +175,11 @@ function showAllImageIndex() {
 }
 
 //Update the image in the preview-panel after select image in the list of the left panel
-function imagenow(vsrc) {
+function imagenow(velem, vsrc) {
     //alert("Imagenow "+vsrc);
     vtime = vplayerPreview.currentTime;
     if (vplayerPreview.src.indexOf(".mp3") > 0) {
-      
+        velem.classList.add("img-selected");
         vimagePreviewDiv.innerHTML = "<img alt='"+vsrc+' at '+vtime+"secs.' src='"+vsrc+"'>";
         //document.getElementById(audiolist).focus();
        
