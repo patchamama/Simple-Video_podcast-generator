@@ -34,8 +34,7 @@ function setDataInHtml(datapos) {
     let vimghtml = "";
     for (let i=0; i<vdata.images.length; i++) {
         vimghtml += `
-        <a href="#" title="${vdata.images[i]}" onclick="imagenow('${vpath}/${vdata.images[i]}')">
-        <img src="${vpath}/${vdata.images[i]}">
+        <img onclick="imagenow('${vpath}/${vdata.images[i]}')" src="${vpath}/${vdata.images[i]}">
         </a>
         <hr>
         `;
