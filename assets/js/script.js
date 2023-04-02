@@ -1,4 +1,5 @@
 
+
 //Initialization of variables
 let data = [
     { 
@@ -155,19 +156,29 @@ function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
 }
 
 //Update the results generate after any change
-function showResults(vimagesSeletedArray) {
+function showResults() {
     let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vaudiofile = vplayerPreview.src.replace(vurlhost,"");
-    let vimagefile = "";
+    let vimageFile = "";
+    let vefectVideo = "";
+    let vefectVideoPost = "";
+    let vwithEfects = false;
+    let vtimeDuration = "";
     vresultsDiv.innerHTML = `ffmpeg -y \\<br>`;
-    for (let a=0; a < vimagesSeletedArray.length; a++) {
-        vimagefile = vimagesSeletedArray[a].split("/").pop();
-        vresultsDiv.innerHTML += `-loop 1 -t 0 -i <span class="emphasis-filename">"${vimagefile}"</span> \\<br>`;
+    for (let a=0; a < imagesSelected.length; a++) {
+        vimageFile = imagesSelected[a].name.split("/").pop();
+        vtimeDuration = ( a===(imagesSelected.length-1) ) ? "" : "-t "+String( Math.floor(imagesSelected[a+1].time - imagesSelected[a].time) );
+        vresultsDiv.innerHTML += `-loop 1 ${vtimeDuration} -i <span class="emphasis-filename">"${vimageFile}"</span> \\<br>`;
+        if (vwithEfects) {
+            vefectVideo += `[${a}:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v${a}]; \\ <br>`;
+            vefectVideoPost += `[v${a}]`;
+        }        
     }
     vaudiofile = vaudiofile.split("/").pop();
     vresultsDiv.innerHTML += `
         -i <span class="emphasis-filename">"${vaudiofile}"</span> \\<br>
-        -filter_complex "concat=n=${vimagesSeletedArray.length}" -shortest \\<br>
+        -filter_complex \\<br>
+        "${vefectVideo}${vefectVideoPost}concat=n=${imagesSelected.length}" -shortest \\<br>
         -strict -2 \\<br>
         -c:v libx264 -pix_fmt yuv420p -c:a aac <span class="emphasis-filename">"video.mp4"</span><br>`;
 }
@@ -214,7 +225,7 @@ function showAllImageIndex() {
     } 
     vimagePreviewSelectedDiv.innerHTML = vbarHTML;
     updateAllImageLeftPanelSelected(vimagesSeletedArray);
-    showResults(vimagesSeletedArray);
+    showResults();
 }
 
 //Update the image in the preview-panel after select image in the list of the left panel
@@ -285,7 +296,7 @@ function updateImageAt(velem, vimage, vtime) {
     //document.getElementsByClassName("imgs-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     let vactions = `
         | <button onclick="deleteCurrentImg();"><i class="fa-solid fa-trash-can"></i> Delete</button>
-        | <i class="fa-solid fa-up-down-left-right"></i> New position: <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="5">
+        | <i class="fa-solid fa-up-down-left-right"></i> New position (secs): <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="5">
     `;
 
     document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i> Image: '+vimage+vactions;
