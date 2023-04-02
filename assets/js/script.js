@@ -44,7 +44,7 @@ function setDataInHtml(datapos) {
 
     //Show audios in the page
     let vaudhtml = `
-        <i class="fa-solid fa-microphone-lines"></i>
+        <i class="fa-solid fa-microphone-lines"></i> Audio:
         <select name="audiolist" id="audiolist" onchange="playnow(this.value)">
             <option value="">Select a audio...</option>`;
     for (let i=0; i<vdata.audios.length; i++) {
