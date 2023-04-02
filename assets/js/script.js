@@ -121,6 +121,11 @@ function insertImgSelectedInTime(vsrc, vtime) {
                     imagesSelected.splice(a,1,{name: vsrc, time: vtime})
                     showAllImageIndex();
                     return false;  
+                }  else if (vtime === imagesSelected[a-1].time) {
+                    //alert("splice 1");
+                    imagesSelected.splice(a-1,1,{name: vsrc, time: vtime})
+                    showAllImageIndex();
+                    return false;  
                 } 
             }      
 
@@ -135,8 +140,11 @@ function insertImgSelectedInTime(vsrc, vtime) {
 //Refresh the images selected/not-Selected in the left panel
 function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
     let vletfImages = document.getElementsByClassName("imgsLeftPanel");
-    for (let a=0; a< vletfImages.length; a++) {
-        if (vimagesSeletedArray.includes(vletfImages[a].src)) {
+    let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
+    let vpathimg = "";
+    for (let a=0; a < vletfImages.length; a++) {
+        vpathimg = vletfImages[a].src.replace(vurlhost,"");
+        if (vimagesSeletedArray.includes(vpathimg)) {
             vletfImages[a].classList.add("img-border-selected");
         } else {
             vletfImages[a].classList.remove("img-border-selected");

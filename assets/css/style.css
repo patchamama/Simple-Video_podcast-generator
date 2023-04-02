@@ -51,7 +51,7 @@ html {
 }
 
 #images-panel img {
-    width: 100%;
+    width: 95%;
 }
 
 #examples-panel {
@@ -100,9 +100,7 @@ html {
 
 .img-border-selected {
     border: 3px solid #98630d;
-    height: 40px;
-    width: auto;
-    padding: 0 2px;
+    border-radius: 50%;
 }
 
 #audio-preview {
