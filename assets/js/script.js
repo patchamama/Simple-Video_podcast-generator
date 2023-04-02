@@ -106,12 +106,13 @@ function insertImgSelectedInTime(vsrc, vtime) {
     //alert("Insertimage "+vsrc+" "+vtime);
     if (imagesSelected.length>0) { 
         let lastimginserted = imagesSelected[imagesSelected.length - 1];
-        if (vtime>lastimginserted.time) {
+        if (vtime>lastimginserted.time+1) {
             imagesSelected.push({name: vsrc, time: vtime});
             return true;
         } else {
-            for (let a=0; a < imagesSelected.length; a++) {
-                if (vtime < imagesSelected[a].time) {
+            for (let a=1; a < imagesSelected.length; a++) {
+                if ( (vtime < imagesSelected[a].time) &&
+                     (vtime > imagesSelected[a-1].time+1) ) {
                     //alert("splice 0");
                     imagesSelected.splice(a,0,{name: vsrc, time: vtime})
                     showAllImageIndex();
