@@ -22,7 +22,7 @@ let lastImagesSelectedShowed = 0;
 let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
 let vimagePreviewSelectedDiv = document.getElementsByClassName("imgs-selected")[0];  //mini-images index
-
+let vresultsDiv = document.getElementsByClassName("result-details")[0];  //results
 
 //Update the panels with image (left) and audios
 function setDataInHtml(datapos) {
@@ -107,6 +107,7 @@ function insertImgSelectedInTime(vsrc, vtime) {
         let lastimginserted = imagesSelected[imagesSelected.length - 1];
         if (vtime>lastimginserted.time+1) {
             imagesSelected.push({name: vsrc, time: vtime});
+            //showAllImageIndex()
             return true;
         } else {
             for (let a=1; a < imagesSelected.length; a++) {
@@ -133,6 +134,7 @@ function insertImgSelectedInTime(vsrc, vtime) {
     } else {
         vtime=0; //The first element begin at the begining > time=0...
         imagesSelected.push({name: vsrc, time: vtime});
+        //showAllImageIndex()
         return true;
     }   
 }
@@ -150,6 +152,24 @@ function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
             vletfImages[a].classList.remove("img-border-selected");
         }
     }
+}
+
+//Update the results generate after any change
+function showResults(vimagesSeletedArray) {
+    let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
+    let vaudiofile = vplayerPreview.src.replace(vurlhost,"");
+    let vimagefile = "";
+    vresultsDiv.innerHTML = `ffmpeg -y \\<br>`;
+    for (let a=0; a < vimagesSeletedArray.length; a++) {
+        vimagefile = vimagesSeletedArray[a].split("/").pop();
+        vresultsDiv.innerHTML += `-loop 1 -t 0 -i <span class="emphasis-filename">"${vimagefile}"</span> \\<br>`;
+    }
+    vaudiofile = vaudiofile.split("/").pop();
+    vresultsDiv.innerHTML += `
+        -i <span class="emphasis-filename">"${vaudiofile}"</span> \\<br>
+        -filter_complex "concat=n=${vimagesSeletedArray.length}" -shortest \\<br>
+        -strict -2 \\<br>
+        -c:v libx264 -pix_fmt yuv420p -c:a aac <span class="emphasis-filename">"video.mp4"</span><br>`;
 }
 
 //Print all the image-index bar
@@ -194,6 +214,7 @@ function showAllImageIndex() {
     } 
     vimagePreviewSelectedDiv.innerHTML = vbarHTML;
     updateAllImageLeftPanelSelected(vimagesSeletedArray);
+    showResults(vimagesSeletedArray);
 }
 
 //Update the image in the preview-panel after select image in the list of the left panel
@@ -237,7 +258,8 @@ function imagenow(velem, vsrc) {
                     ${vtimeshow}
                     </div>`;   
                 let vtempselected1 = document.getElementsByClassName('indeximgstrict')[imagesSelected.length-1];
-                updateImageAt(vtempselected1, vsrc, vtime);        
+                updateImageAt(vtempselected1, vsrc, vtime); 
+                showAllImageIndex();
             } else {  //insert image before the last inserted and reprint all the elements of images-index again...
                 //showAllImageIndex();
             }  

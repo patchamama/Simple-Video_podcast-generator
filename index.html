@@ -69,15 +69,16 @@
 
         <div id="preview-panel">
             <div class="preview-info"><i class="fa-solid fa-photo-film"></i></div>
-            <div onclick="changeAudioPlaying();" class="img-preview"><img alt="No image available"  src="assets/images/No_image_available.svg.png"> </div>		
-		    <span onclick="changePlayerTimePos(-10);" class="icon-control">-10s <i class="fa-sharp fa-solid fa-rotate-left"></i></span>
+            <div class="img-preview" onclick="changeAudioPlaying();"><img alt="No image available"  src="assets/images/No_image_available.svg.png"> </div>		
+		    <span class="icon-control" onclick="changePlayerTimePos(-10);">-10s <i class="fa-sharp fa-solid fa-rotate-left"></i></span>
             <audio id="audio-preview" src="" ontimeupdate="updateTrackTime(this);" controls autoplay></audio>
-            <span onclick="changePlayerTimePos(+10);" class="icon-control"><i class="fa-sharp fa-solid fa-rotate-right"></i> +10s</span>
+            <span class="icon-control" onclick="changePlayerTimePos(+10);" ><i class="fa-sharp fa-solid fa-rotate-right"></i> +10s</span>
             <div class="imgs-selected"></div>
         </div>
 
         <div id="result-panel">
-            <i class="fa-solid fa-terminal"></i> Result
+            <div class="result-info"><i class="fa-solid fa-terminal"></i> Results:</div>
+            <div class="result-details"></div>
         </div>
     </div>
 

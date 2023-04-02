@@ -128,6 +128,14 @@ html {
 }
 
 .icon-control {
-    font-size: 40px;
+    font-size: 30px;
 }
 
+.result-info {
+    text-align: left;
+}
+
+.emphasis-filename {
+    font-weight: 600;
+    color: #98630d;
+}
