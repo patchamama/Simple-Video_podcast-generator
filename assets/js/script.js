@@ -256,23 +256,28 @@ function playnow(vsrc) {
 
 //Change position of the image active +-
 function changeImgtimePos(velem) {
-    let vincpos = velem.value;
-    velem.value = 0;
-    if (!isNaN(vincpos)) {
-        let vcurrentImag = getImgIndexActiveAtCurrentTime();
-        let vincposval = parseFloat(vincpos);
-        let vsum = imagesSelected[vcurrentImag].time + vincposval;
-        if ( (vsum>=0) && (vsum<=vplayerPreview.duration) ) {
-            let vsrc = imagesSelected[vcurrentImag].name;
-            imagesSelected.splice(vcurrentImag,1);
-            insertImgSelectedInTime(vsrc, vsum);
-            vplayerPreview.currentTime = vsum;
-            imagesSelected[0].time = 0;
-            showAllImageIndex();
-        } else {
-            alert("The value is out of the range: "+vsum.toString());
+    let vcurrentImag = getImgIndexActiveAtCurrentTime();
+    if (vcurrentImag>0) {
+        let vincpos = velem.value;
+        velem.value = 0;
+        if (!isNaN(vincpos)) {
+            let vincposval = parseFloat(vincpos);
+            let vsum = imagesSelected[vcurrentImag].time + vincposval;
+            if ( (vsum>=0) && (vsum<=vplayerPreview.duration) ) {
+                let vsrc = imagesSelected[vcurrentImag].name;
+                imagesSelected.splice(vcurrentImag,1);
+                insertImgSelectedInTime(vsrc, vsum);
+                vplayerPreview.currentTime = vsum;
+                imagesSelected[0].time = 0;
+                showAllImageIndex();
+            } else {
+                alert("The value is out of the range: "+vsum.toString());
+            }
         }
-    }   
+    } else {
+        alert("It is not possible to change the position of the first image")
+    }
+       
 }
 
 //delete the image active in preview-panel
