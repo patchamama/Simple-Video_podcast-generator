@@ -34,10 +34,9 @@ function setDataInHtml(datapos) {
     let vimghtml = "";
     for (let i=0; i<vdata.images.length; i++) {
         vimghtml += `
-        <img onclick="imagenow(this,'${vpath}/${vdata.images[i]}')" src="${vpath}/${vdata.images[i]}">
+        <img class="imgsLeftPanel" onclick="imagenow(this,'${vpath}/${vdata.images[i]}')" src="${vpath}/${vdata.images[i]}">
         </a>
-        <hr>
-        `;
+        <hr>`; 
         console.log(vimghtml);
     }
 
@@ -133,6 +132,18 @@ function insertImgSelectedInTime(vsrc, vtime) {
     }   
 }
 
+//Refresh the images selected/not-Selected in the left panel
+function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
+    let vletfImages = document.getElementsByClassName("imgsLeftPanel");
+    for (let a=0; a< vletfImages.length; a++) {
+        if (vimagesSeletedArray.includes(vletfImages[a].src)) {
+            vletfImages[a].classList.add("img-selected");
+        } else {
+            vletfImages[a].classList.remove("img-selected");
+        }
+    }
+}
+
 //Print all the image-index bar
 function showAllImageIndex() {
     //alert("showallimage");
@@ -145,10 +156,12 @@ function showAllImageIndex() {
     let vtime = 0;
     let vimgSelectedNr = getImgIndexActiveAtCurrentTime();
     let vcurrentImgSelectedHTML = "";
+    let vimagesSeletedArray = [];  //Contain the images already selected
 
     for (let a=0; a< imagesSelected.length; a++) {
         vsrc = imagesSelected[a].name;
         vtime = imagesSelected[a].time;
+        vimagesSeletedArray.push(vsrc);
         vtimeshow = getTimePrint(vtime);
         if (a===0) {  // is the firstelement?
             vtimedifDiv = "";
@@ -172,6 +185,7 @@ function showAllImageIndex() {
             </div>`;  
     } 
     vimagePreviewSelectedDiv.innerHTML = vbarHTML;
+    updateAllImageLeftPanelSelected(vimagesSeletedArray);
 }
 
 //Update the image in the preview-panel after select image in the list of the left panel
