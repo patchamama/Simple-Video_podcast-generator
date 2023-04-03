@@ -20,6 +20,8 @@ let data = [
 let imagesSelected = []; // Store the images selected in the preview {name:"", time:0}
 let lastImagesSelectedShowed = 0;
 let vfirstTimeScriptExecuted = true;
+let vdata = []; //Dataset active
+let vpath = ""  //Path to the images/audios
 
 let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
@@ -31,8 +33,8 @@ let vdebug = true;
 function setDataInHtml(datapos) {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     resetPreview(true);  //Reset all the images and audios preselected...
-    let vdata = data[datapos];
-    let vpath = vdata.path;  //Path to the images/audios
+    vdata = data[datapos];
+    vpath = vdata.path;  //Path to the images/audios
 
     //Show images in the page
     let vimghtml = "";
@@ -65,7 +67,7 @@ function setDataInHtml(datapos) {
 function resetPreview(fullreset) {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     //Reset the player > no audio
-    vplayerPreview.stop;
+    vplayerPreview.pause();
     if (fullreset) {
         vplayerPreview.src = "";
     }
@@ -382,7 +384,7 @@ function autoGenSec(velem) {
     let vpathimg = "";
     for (a = 0; a < vplayerPreview.duration; a=a+vtimeseq) {
         for (let c=0; c < vleftImages.length; c++) {
-            vpathimg = vleftImages[c].src.replace(window.location.protocol,"").replace(window.location.hostname,"").replace("//","/").replace("//","/");
+            vpathimg = vpath + "/" + vleftImages[c].src.split("/").pop();
             imagesSelected.push({name: vpathimg, time: a});
             if (c<vleftImages.length-1) {
                 a=a+vtimeseq;

@@ -128,7 +128,7 @@ html {
 }
 
 .icon-control {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .result-info {
@@ -160,4 +160,21 @@ html {
     margin-left: 150px;
     margin: auto;
     height: 400px;
+}
+
+/* Center the head-titles-section names and contact-info */
+@media screen and (max-width: 800px) {
+    .icon-control {
+        font-size: 20px;
+    }
+}
+
+/* Show only 1 column with images and reduce padding-margin of medialinks */
+@media screen and (max-width: 500px) {
+ 
+}
+
+/* The banner don't be showed full > hidde it! */
+@media screen and (max-width: 360px) {
+
 }
