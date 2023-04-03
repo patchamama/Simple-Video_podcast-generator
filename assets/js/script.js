@@ -379,11 +379,10 @@ function autoGenSec(velem) {
     imagesSelected = [];  //delete all the imgs selected
     vplayerPreview.pause();
     let vleftImages = document.getElementsByClassName("imgsLeftPanel");
-    let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vpathimg = "";
     for (a = 0; a < vplayerPreview.duration; a=a+vtimeseq) {
         for (let c=0; c < vleftImages.length; c++) {
-            vpathimg = vleftImages[c].src.replace(vurlhost,"");
+            vpathimg = vleftImages[c].src.replace(window.location.protocol,"").replace(window.location.hostname,"").replace("//","/").replace("//","/");
             imagesSelected.push({name: vpathimg, time: a});
             if (c<vleftImages.length-1) {
                 a=a+vtimeseq;
@@ -454,6 +453,7 @@ function deleteCurrentImg() {
         imagesSelected.splice(vcurrentImag,1);
         imagesSelected[0].time = 0; //Always the first Image will begin in the position 0 sec.
         showAllImageIndex();
+        lastImagesSelectedShowed = (vcurrentImag > imagesSelected.length-1) ? imagesSelected.length-1 : vcurrentImag;
     }
 
 }
@@ -515,7 +515,7 @@ function changePlayerTimePos(vinc) {
     }
 }
 
-//Action to be execute in one time?
+//Update imageselected-index and preview related with every time
 function updateTrackTime(vplayer) {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     vaudiotime=vplayer.currentTime;
