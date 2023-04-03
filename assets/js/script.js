@@ -164,30 +164,78 @@ function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
 //Update the results generate after any change
 function showResults() {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
+
+    if (imagesSelected.length===0) {
+        document.getElementsByClassName("result-info")[0].innerHTML = `
+            <i class="fa-solid fa-terminal"></i> Results:`;
+        vresultsDiv.innerHTML = "";
+        return;
+    }
     let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vaudiofile = vplayerPreview.src.replace(vurlhost,"");
     let vimageFile = "";
-    let vefectVideo = "";
-    let vefectVideoPost = "";
-    let vwithEfects = false;
+    let vnewimageFile = "";
+    let vfiltercomplex = "";
+    let vfiltercomplexPost = "";
+    let vwithFilters = false;
     let vtimeDuration = "";
-    vresultsDiv.innerHTML = `ffmpeg -y \\<br>`;
+
+    if (vresultsDiv.innerHTML === "") {
+        document.getElementsByClassName("result-info")[0].innerHTML = `
+        <i class="fa-solid fa-terminal"></i> Results:
+        <select><option>ffmpeg command line</option></select>
+        | <input type="checkbox" id="use-fullpath" onchange="showResults()" > Use file path
+        | <input type="checkbox" id="use-effects" onchange="showResults()" > Use fadeIn/Out
+        | <input type="checkbox" id="use-imgreadjust" onchange="showResults()" checked > Readjust images size
+        `;
+    }
+ 
+    vresultsDiv.innerHTML = "";
+    vwithFilters = ((document.getElementById("use-imgreadjust").checked) || (document.getElementById("use-effects").checked) );
+    
+    vresultsDiv.innerHTML += `ffmpeg -y \\<br>`;
     for (let a=0; a < imagesSelected.length; a++) {
-        vimageFile = imagesSelected[a].name.split("/").pop();
+        vimageFile = imagesSelected[a].name;
+        if (!document.getElementById("use-fullpath").checked) {
+            vimageFile = vimageFile.split("/").pop();
+        }
+        //if (document.getElementById("use-imgreadjust").checked) {
+            //vimageFile = vimageFile.replace(vimageFile.split("/").pop(),"_"+vimageFile.split("/").pop());
+        //}
         vtimeDuration = ( a===(imagesSelected.length-1) ) ? "" : "-t "+String( Math.floor(imagesSelected[a+1].time - imagesSelected[a].time) );
         vresultsDiv.innerHTML += `-loop 1 ${vtimeDuration} -i <span class="emphasis-filename">"${vimageFile}"</span> \\<br>`;
-        if (vwithEfects) {
-            vefectVideo += `[${a}:v]fade=t=in:st=0:d=1,fade=t=out:st=4:d=1[v${a}]; \\ <br>`;
-            vefectVideoPost += `[v${a}]`;
-        }        
+
+        if (vwithFilters) {
+            vfiltercomplex += `[${a}:v]`;        
+            if (document.getElementById("use-imgreadjust").checked) {
+                vfiltercomplex += `scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,setsar=1`;
+            }
+            if (document.getElementById("use-effects").checked) {
+                if (document.getElementById("use-imgreadjust").checked) {
+                    vfiltercomplex += ",";
+                }
+                vfiltercomplex += `fade=t=in:st=0:d=1,fade=t=out:st=4:d=1`;
+            }
+            vfiltercomplex += `[v${a}]; \\ <br>`;
+            vfiltercomplexPost += `[v${a}]`;   
+            
+        } 
     }
-    vaudiofile = vaudiofile.split("/").pop();
+
+    if (!document.getElementById("use-fullpath").checked) {
+        vaudiofile = vaudiofile.split("/").pop();
+    }
+
+    if (!document.getElementById("use-imgreadjust").checked) {
+        document.getElementsByClassName("comment-info")[0].innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> If the input images varying or are arbitrary sizes, better use the option "Readjust images size" or errors may be generated';
+    } else {
+        document.getElementsByClassName("comment-info")[0].innerHTML = ''; 
+    }
+
     vresultsDiv.innerHTML += `
         -i <span class="emphasis-filename">"${vaudiofile}"</span> \\<br>
         -filter_complex \\<br>
-        "${vefectVideo}${vefectVideoPost}concat=n=${imagesSelected.length}" -shortest \\<br>
-        -strict -2 \\<br>
-        -c:v libx264 -pix_fmt yuv420p -c:a aac <span class="emphasis-filename">"video.mp4"</span><br>`;
+        "${vfiltercomplex}${vfiltercomplexPost}concat=n=${imagesSelected.length}:v=1:a=0,format=yuv420p[v]" -map "[v]" -map ${imagesSelected.length}:a -shortest -movflags +faststart <span class="emphasis-filename">"video.mp4"</span><br>`;
 }
 
 //Print all the image-index bar
