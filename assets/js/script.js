@@ -217,7 +217,7 @@ function showAllImageIndex() {
         //Insert the image + position in the mini-image index on bottom
         vbarHTML += `
             ${vtimedifDiv}
-            <div onclick="updateImageAt(this, '${vsrc}', ${vtime})" class="indeximg indeximgstrict ${vcurrentImgSelectedHTML}">
+            <div onclick="updateImageAt(this, '${vsrc}', ${vtime}, true)" class="indeximg indeximgstrict ${vcurrentImgSelectedHTML}">
             <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
             <br>
             ${vtimeshow}
@@ -263,13 +263,13 @@ function imagenow(velem, vsrc) {
                 }
                 vimagePreviewSelectedDiv.innerHTML += `
                     ${vtimedifDiv}
-                    <div onclick="updateImageAt(this, '${vsrc}', ${vtime})" class="indeximg indeximgstrict indeximg-selected">
+                    <div onclick="updateImageAt(this, '${vsrc}', ${vtime}, true)" class="indeximg indeximgstrict indeximg-selected">
                     <img alt="${vsrc} at ${vtime} secs." src="${vsrc}">
                     <br>
                     ${vtimeshow}
                     </div>`;   
                 let vtempselected1 = document.getElementsByClassName('indeximgstrict')[imagesSelected.length-1];
-                updateImageAt(vtempselected1, vsrc, vtime); 
+                updateImageAt(vtempselected1, vsrc, vtime, false); 
                 showAllImageIndex();
             } else {  //insert image before the last inserted and reprint all the elements of images-index again...
                 //showAllImageIndex();
@@ -283,7 +283,7 @@ function imagenow(velem, vsrc) {
 }
 
 //Show the image and audio position after click the mini-image in the preview-panel
-function updateImageAt(velem, vimage, vtime) {
+function updateImageAt(velem, vimage, vtime, updateTime) {
     let vtempselected = document.getElementsByClassName('indeximg-selected');
     while(vtempselected.length > 0){
         vtempselected[0].classList.remove("indeximg-selected");
@@ -292,7 +292,10 @@ function updateImageAt(velem, vimage, vtime) {
     //alert("updateimageat "+vimage+" "+vtime);
     vimagePreviewDiv.innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     //vplayerPreview.currentTime = vtime;
-    document.getElementById("audio-preview").currentTime = vtime;
+    if (updateTime) {
+        document.getElementById("audio-preview").currentTime = vtime;
+    }
+    
     //document.getElementsByClassName("imgs-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     let vactions = `
         | <button onclick="deleteCurrentImg();"><i class="fa-solid fa-trash-can"></i> Delete</button>
@@ -374,7 +377,7 @@ function searchAndUpdateImgAtNewTime(vplayer) {
         if ( (vaudiotime>=vtime) && (vaudiotime < vtimeNext) ) {
             let vimage = imagesSelected[a].name;           
             let vtempselected = document.getElementsByClassName('indeximgstrict')[a];
-            updateImageAt(vtempselected, vimage, vtime);
+            updateImageAt(vtempselected, vimage, vtime, false);
             lastImagesSelectedShowed = a;
             break;
         }
