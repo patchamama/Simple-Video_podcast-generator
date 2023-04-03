@@ -84,6 +84,7 @@ function resetPreview(fullreset) {
     srcImagesDiv.scrollTop = 0;
 
     document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i>';
+    showAllImageIndex();
 }
 
 //Convert timestamp in String(hh:mm:ss) 
@@ -309,11 +310,40 @@ function updateImageAt(velem, vimage, vtime, updateTime) {
     //document.getElementsByClassName("imgs-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     let vactions = `
         | <button onclick="deleteCurrentImg();"><i class="fa-solid fa-trash-can"></i> Delete</button>
-        | <i class="fa-solid fa-up-down-left-right"></i> New position (secs): <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="5">
-    `;
+        | <i class="fa-solid fa-up-down-left-right"></i> New position (secs): <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="2">
+        || <i class="fa-solid fa-wand-magic-sparkles"></i> Autogenerate: put images every <input onchange="autoGenSec(this);" type="number" step="1" maxlength="2" size="2"> seconds 
+        `;
 
     document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i> Image: '+vimage+vactions;
 }
+
+
+//Delete all the imgs selected and regenerate with the sequence of the present imgs every x secs
+function autoGenSec(velem) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
+    let vtimeseq = Number(velem.value);
+    imagesSelected = [];  //delete all the imgs selected
+    vplayerPreview.pause();
+    let vletfImages = document.getElementsByClassName("imgsLeftPanel");
+    let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
+    let vpathimg = "";
+    for (a = 0; a < vplayerPreview.duration; a=a+vtimeseq) {
+        for (let c=0; c < vletfImages.length; c++) {
+            vpathimg = vletfImages[c].src.replace(vurlhost,"");
+            imagesSelected.push({name: vpathimg, time: a});
+            if (c<vletfImages.length-1) {
+                a=a+vtimeseq;
+            }
+            if (a >= vplayerPreview.duration) {
+                break;
+            }
+            console.log(a+" "+vpathimg);
+        }
+    }
+    vplayerPreview.currentTime=0;
+    showAllImageIndex();
+}
+
 
 //Play the audio selected in the listbox
 function playnow(vsrc) {
@@ -439,13 +469,13 @@ function updateTrackTime(vplayer) {
         }
     }   
     //console.log(vaudiotime);
-}
+    }
 
 //==================================================
 // Main code to be executed after functions declarations
 if (data.length > 0) {
     setDataInHtml(0);
-    let vexampleHtml = '<select onchange="setDataInHtml(this.value)">';
+    let vexampleHtml = '<i class="fa-solid fa-database"></i> Datasets: <select onchange="setDataInHtml(this.value)">';
     for (let a=0; a<data.length; a++) {
         vexampleHtml += (a === 0) ? '<option selected value="'+(a)+'">'+(data[a].path)+'</option>' : '<option value="'+(a)+'">'+(data[a].path)+'</option>';
         }
