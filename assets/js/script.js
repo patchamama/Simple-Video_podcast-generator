@@ -52,7 +52,6 @@ function setDataInHtml(datapos) {
         vaudhtml += `
             <option value="${vpath}/${vdata.audios[i]}">${vdata.audios[i]}</option>
         `;
-        console.log(vaudhtml);
     }
     vaudhtml += "</select>";
 
@@ -310,10 +309,10 @@ function updateImageAt(velem, vimage, vtime, updateTime) {
     //document.getElementsByClassName("imgs-preview")[0].innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     let vactions = `
         | <button onclick="deleteCurrentImg();"><i class="fa-solid fa-trash-can"></i> Delete</button>
-        | <i class="fa-solid fa-up-down-left-right"></i> New position (secs): <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="2">
-        || <i class="fa-solid fa-wand-magic-sparkles"></i> Autogenerate: put images every <input onchange="autoGenSec(this);" type="number" step="1" maxlength="2" size="2"> seconds 
+        | <i class="fa-solid fa-up-down-left-right"></i> Set (secs): <input onchange="changeImgtimePos(this);" type="number" step="1" maxlength="5" size="2">
+        | <i class="fa-solid fa-wand-magic-sparkles"></i> Insert images every <input onchange="autoGenSec(this);" type="number" step="1" maxlength="2" size="2"> secs. 
         `;
-
+    vimage = vimage.split("/").pop();
     document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i> Image: '+vimage+vactions;
 }
 
@@ -342,6 +341,10 @@ function autoGenSec(velem) {
     }
     vplayerPreview.currentTime=0;
     showAllImageIndex();
+    if (document.getElementsByClassName('indeximgstrict').length>0) {
+        document.getElementsByClassName('indeximgstrict')[0].click();
+    }
+    
 }
 
 
@@ -351,6 +354,12 @@ function playnow(vsrc) {
     resetPreview(true); //Reset the previews configuration
     vplayerPreview.src = vsrc;
     vplayerPreview.play;
+    let vactions = `
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Insert images every <input onchange="autoGenSec(this);" type="number" step="1" maxlength="2" size="2"> secs. 
+        `;
+
+    document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i> '+vactions;
+
 }
 
 //Change position of the image active +-
