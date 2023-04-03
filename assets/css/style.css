@@ -152,3 +152,12 @@ html {
 .comment-info i {
     color: black;
 }
+
+.quick-guide {
+    text-align: left;
+    padding: 0 155px;
+    width: 600px;
+    margin-left: 150px;
+    margin: auto;
+    height: 400px;
+}

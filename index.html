@@ -69,7 +69,23 @@
 
         <div id="preview-panel">
             <div class="preview-info"><i class="fa-solid fa-photo-film"></i></div>
-            <div class="img-preview" onclick="changeAudioPlaying();"><img alt="No image available"  src="assets/images/No_image_available.svg.png"> </div>		
+            <div class="img-preview" onclick="changeAudioPlaying();"> 
+                <div class="quick-guide">
+                    <h3>Quick guide</h3>
+                    <ol>
+                        <li>Select a dataset (optional)</li>
+                        <li>Select an audio to play it</li>
+                        <ol>
+                            <li>Auto-insert images every given number of seconds: choose the "Insert images every" option specifying the time between images.</li>
+                            <li>Select an image from the left panel when you know in which audio position you want to display it while listening to the audio (the first image will be inserted at time 0 at the beginning)</li>
+                        </ol>
+                        <li>Insert/delete/replace/change position of the images you inserted in the central panel</li>
+                        <li>Copy the result generated in the command line to your terminal (you must have the image and audio files in this directory) and paste the command to execute it and wait for the video to be generated (by default the file “video.mp4” would be generated).</li>
+                        <li>Once ready you can view the video or upload it to your favorite video portal (youtube, vimeo,...).</li>
+                    </ol>
+                </div>
+            </div>		
+            <!-- <img alt="No image available"  src="assets/images/No_image_available.svg.png"> -->
 		    <span class="icon-control" onclick="changePlayerTimePos(-10);">-10s <i class="fa-sharp fa-solid fa-rotate-left"></i></span>
             <audio id="audio-preview" src="" ontimeupdate="updateTrackTime(this);" controls autoplay></audio>
             <span class="icon-control" onclick="changePlayerTimePos(+10);" ><i class="fa-sharp fa-solid fa-rotate-right"></i> +10s</span>

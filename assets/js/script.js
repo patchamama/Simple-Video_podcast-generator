@@ -19,6 +19,7 @@ let data = [
 ];
 let imagesSelected = []; // Store the images selected in the preview {name:"", time:0}
 let lastImagesSelectedShowed = 0;
+let vfirstTimeScriptExecuted = true;
 
 let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
@@ -71,7 +72,10 @@ function resetPreview(fullreset) {
         
 
     //Reset the image (no image available)
-    vimagePreviewDiv.innerHTML = "<img src='assets/images/No_image_available.svg.png'>";
+    if (!vfirstTimeScriptExecuted) {
+        vimagePreviewDiv.innerHTML = "<img src='assets/images/No_image_available.svg.png'>";
+    }
+    
 
     //Reset the mini-image index on bottom from the preview-panel
     document.getElementsByClassName("imgs-selected")[0].innerHTML = "";
@@ -84,6 +88,7 @@ function resetPreview(fullreset) {
 
     document.getElementsByClassName("preview-info")[0].innerHTML = '<i class="fa-solid fa-photo-film"></i>';
     showAllImageIndex();
+    vfirstTimeScriptExecuted = false;
 }
 
 //Convert timestamp in String(hh:mm:ss) 
