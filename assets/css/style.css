@@ -62,7 +62,7 @@ html {
     width: 15%;
     float: left;
     overflow: auto;
-    max-height: 83vh;
+    max-height: 150vh;
 }
 
 .right-panel {

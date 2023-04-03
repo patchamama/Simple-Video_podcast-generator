@@ -153,15 +153,15 @@ function insertImgSelectedInTime(vsrc, vtime) {
 //Refresh the images selected/not-Selected in the left panel
 function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
-    let vletfImages = document.getElementsByClassName("imgsLeftPanel");
+    let vleftImages = document.getElementsByClassName("imgsLeftPanel");
     let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vpathimg = "";
-    for (let a=0; a < vletfImages.length; a++) {
-        vpathimg = vletfImages[a].src.replace(vurlhost,"");
+    for (let a=0; a < vleftImages.length; a++) {
+        vpathimg = vleftImages[a].src.replace(vurlhost,"");
         if (vimagesSeletedArray.includes(vpathimg)) {
-            vletfImages[a].classList.add("img-border-selected");
+            vleftImages[a].classList.add("img-border-selected");
         } else {
-            vletfImages[a].classList.remove("img-border-selected");
+            vleftImages[a].classList.remove("img-border-selected");
         }
     }
 }
@@ -347,6 +347,7 @@ function imagenow(velem, vsrc) {
 //Show the image and audio position after click the mini-image in the preview-panel
 function updateImageAt(velem, vimage, vtime, updateTime) {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
+      
     let vtempselected = document.getElementsByClassName('indeximg-selected');
     while(vtempselected.length > 0){
         vtempselected[0].classList.remove("indeximg-selected");
@@ -356,6 +357,7 @@ function updateImageAt(velem, vimage, vtime, updateTime) {
     vimagePreviewDiv.innerHTML = "<img alt='"+vimage+' at '+vtime+" secs.' src='"+vimage+"'>";
     //vplayerPreview.currentTime = vtime;
     if (updateTime) {
+        //vplayerPreview.currentTime = vtime;
         document.getElementById("audio-preview").currentTime = vtime;
     }
     
@@ -376,14 +378,14 @@ function autoGenSec(velem) {
     let vtimeseq = Number(velem.value);
     imagesSelected = [];  //delete all the imgs selected
     vplayerPreview.pause();
-    let vletfImages = document.getElementsByClassName("imgsLeftPanel");
+    let vleftImages = document.getElementsByClassName("imgsLeftPanel");
     let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vpathimg = "";
     for (a = 0; a < vplayerPreview.duration; a=a+vtimeseq) {
-        for (let c=0; c < vletfImages.length; c++) {
-            vpathimg = vletfImages[c].src.replace(vurlhost,"");
+        for (let c=0; c < vleftImages.length; c++) {
+            vpathimg = vleftImages[c].src.replace(vurlhost,"");
             imagesSelected.push({name: vpathimg, time: a});
-            if (c<vletfImages.length-1) {
+            if (c<vleftImages.length-1) {
                 a=a+vtimeseq;
             }
             if (a >= vplayerPreview.duration) {
@@ -502,7 +504,7 @@ function changeAudioPlaying() {
     }
 }
 
-//Update time position o the player
+//Update time position on the player
 function changePlayerTimePos(vinc) {
     if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let newpos = vplayerPreview.currentTime + vinc;
