@@ -24,9 +24,11 @@ let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0]; 
 let vimagePreviewSelectedDiv = document.getElementsByClassName("imgs-selected")[0];  //mini-images index
 let vresultsDiv = document.getElementsByClassName("result-details")[0];  //results
+let vdebug = true;
 
 //Update the panels with image (left) and audios
 function setDataInHtml(datapos) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     resetPreview(true);  //Reset all the images and audios preselected...
     let vdata = data[datapos];
     let vpath = vdata.path;  //Path to the images/audios
@@ -61,6 +63,7 @@ function setDataInHtml(datapos) {
 
 //Reset the Preview info without audio and images when the complete dataset is changed
 function resetPreview(fullreset) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     //Reset the player > no audio
     vplayerPreview.stop;
     if (fullreset) {
@@ -85,6 +88,7 @@ function resetPreview(fullreset) {
 
 //Convert timestamp in String(hh:mm:ss) 
 function getTimePrint(vtime) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     vtime = Math.trunc(vtime);
     let hours = Math.floor(vtime % (3600*24) / 3600);
     let mins = Math.floor(vtime % 3600 / 60);
@@ -103,6 +107,7 @@ function getTimePrint(vtime) {
 //Insert in order of time every image in the var imagesSelected
 // and return if is inserted at the end
 function insertImgSelectedInTime(vsrc, vtime) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     //alert("Insertimage "+vsrc+" "+vtime);
     if (imagesSelected.length>0) { 
         let lastimginserted = imagesSelected[imagesSelected.length - 1];
@@ -142,6 +147,7 @@ function insertImgSelectedInTime(vsrc, vtime) {
 
 //Refresh the images selected/not-Selected in the left panel
 function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let vletfImages = document.getElementsByClassName("imgsLeftPanel");
     let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vpathimg = "";
@@ -157,6 +163,7 @@ function updateAllImageLeftPanelSelected(vimagesSeletedArray) {
 
 //Update the results generate after any change
 function showResults() {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let vurlhost = window.location.protocol+"//"+window.location.hostname+"/";
     let vaudiofile = vplayerPreview.src.replace(vurlhost,"");
     let vimageFile = "";
@@ -185,6 +192,7 @@ function showResults() {
 
 //Print all the image-index bar
 function showAllImageIndex() {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     //alert("showallimage");
     let vbarHTML = "";
     let vtimedifDiv = "";
@@ -230,6 +238,7 @@ function showAllImageIndex() {
 
 //Update the image in the preview-panel after select image in the list of the left panel
 function imagenow(velem, vsrc) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     //alert("Imagenow "+vsrc);
     vtime = vplayerPreview.currentTime;
     if (vplayerPreview.src.indexOf(".mp3") > 0) {
@@ -284,6 +293,7 @@ function imagenow(velem, vsrc) {
 
 //Show the image and audio position after click the mini-image in the preview-panel
 function updateImageAt(velem, vimage, vtime, updateTime) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let vtempselected = document.getElementsByClassName('indeximg-selected');
     while(vtempselected.length > 0){
         vtempselected[0].classList.remove("indeximg-selected");
@@ -307,6 +317,7 @@ function updateImageAt(velem, vimage, vtime, updateTime) {
 
 //Play the audio selected in the listbox
 function playnow(vsrc) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     resetPreview(true); //Reset the previews configuration
     vplayerPreview.src = vsrc;
     vplayerPreview.play;
@@ -314,6 +325,7 @@ function playnow(vsrc) {
 
 //Change position of the image active +-
 function changeImgtimePos(velem) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let vcurrentImag = getImgIndexActiveAtCurrentTime();
     if (vcurrentImag>0) {
         let vincpos = velem.value;
@@ -340,6 +352,7 @@ function changeImgtimePos(velem) {
 
 //delete the image active in preview-panel
 function deleteCurrentImg() {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     if (imagesSelected.length===1) {
         resetPreview(false);
     } else {
@@ -353,6 +366,7 @@ function deleteCurrentImg() {
 
 //Check if the time of the player correspond with a new imag
 function getImgIndexActiveAtCurrentTime() {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let vaudiotime=vplayerPreview.currentTime;
     let vtimeNext = 0;
     let vtime = 0;
@@ -368,6 +382,7 @@ function getImgIndexActiveAtCurrentTime() {
 
 //Check if the time of the player correspond with a new imag
 function searchAndUpdateImgAtNewTime(vplayer) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let vaudiotime=vplayer.currentTime;
     let vtimeNext = 0;
     let vtime = 0;
@@ -387,6 +402,7 @@ function searchAndUpdateImgAtNewTime(vplayer) {
 
 //When clic in the preview-imag play or pause the audio...
 function changeAudioPlaying() {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     if (vplayerPreview.paused) {
         vplayerPreview.play();
     } else {
@@ -396,6 +412,7 @@ function changeAudioPlaying() {
 
 //Update time position o the player
 function changePlayerTimePos(vinc) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     let newpos = vplayerPreview.currentTime + vinc;
   if ( (newpos>0) && (newpos < vplayerPreview.duration) ) {
         vplayerPreview.currentTime = newpos;
@@ -406,6 +423,7 @@ function changePlayerTimePos(vinc) {
 
 //Action to be execute in one time?
 function updateTrackTime(vplayer) {
+    if (vdebug) { console.log(arguments.callee.name+" "+vplayerPreview.currentTime); }
     vaudiotime=vplayer.currentTime;
     //lastImagesSelectedShowed
     if (imagesSelected.length>1) {
