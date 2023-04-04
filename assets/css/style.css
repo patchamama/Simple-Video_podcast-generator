@@ -4,7 +4,10 @@ html {
   }
   
   #header {
-    background: url("../images/cover.jpg") no-repeat center center fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: url("../images/cover.jpg");
     border-bottom: 1px dotted;
     height: 18vh;
     width: 100%;
