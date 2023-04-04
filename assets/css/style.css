@@ -6,7 +6,9 @@ html {
   #header {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: left top;
     background: url("../images/cover.jpg");
     border-bottom: 1px dotted;
     height: 18vh;
