@@ -24,7 +24,7 @@ let vplayerPreview = document.getElementById("audio-preview");
 let vimagePreviewDiv = document.getElementsByClassName("img-preview")[0];
 let vimagePreviewSelectedDiv = document.getElementsByClassName("imgs-selected")[0]; //mini-images index
 let vresultsDiv = document.getElementsByClassName("result-details")[0]; //results
-let vdebug = true;  //debug in console data?
+let vdebug = false;  //debug in console data?
 
 
 /**
