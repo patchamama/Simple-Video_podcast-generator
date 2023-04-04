@@ -1,108 +1,67 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Simple video-podcast generator
 
-Welcome Armando Urquiola Cabrera,
+Welcome to my second project of the [Code institute](https://codeinstitute.net)!
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+I'm happy to meet my challenge in javascript programming (+html+css). And to meet my challenge I have chosen to create a web tool that allows me to automate the generation of a "line command" to join an audio with several images and in this way create a video, that can be uploaded later to youtube or other video hosting platform. The command line executes the program "ffmpeg" with several parameters that specify the name of the images to insert in the video, at what moment each image is inserted (time) and the audio that composes it.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
 
-## Gitpod Reminders
+![Gallery Example](https://github.com/patchamama/PP2-Simple-Video_podcast-generator/blob/main/doc/PP2-screenshot.png)
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## The goal
 
-`python3 -m http.server`
+The objective of this program is to provide a visual tool to better manage, test and check the position of the images to be added to an audio to make a video (with the sequence of images selected in the time defined by the user). In this way, the task and configuration of the images in relation to the time position in audio with which it would be related is greatly facilitated.
 
-A blue button should appear to click: _Make Public_,
+## Features
 
-Another blue button should appear to click: _Open Browser_.
+In order to achieve the objective, we start with the minimum digital materials necessary:
+- an audio,
+- one or several images.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+To connect the images with the audio has been defined:
 
-A blue button should appear to click: _Make Public_,
+### Dataset section
+  - Allows you to choose a predefined group of data (images+sound).
 
-Another blue button should appear to click: _Open Browser_.
+### Audio section
+  - Section with the audio to be selected with a player (in the upper center). It allows you to play the audio and move with the status bar, to every direct and desired position of the audio.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Work section
+  - Candidate images to be selected (left panel). 
 
-To log into the Heroku toolbelt CLI:
+### Work section
+  - Section that integrates the audio and the images (in the center of the page) that allows to visualize and choose each previously selected image and to change its position, delete it or insert new images.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### Result section
+  - In this section, the "command line" is generated to be executed (msdos, terminal, ...) and generate the desired final video.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+### Features Left to Implement
 
-------
+  - Add the possibility of integrating the application with a backend and a program such as php, python, nodejs, that allows to upload the multimedia files to a server and use the script on it. 
 
-## Release History
+## Testing 
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+  - To avoid errors, the page has been tested with several browsers on different operating systems and devices.
+  - It has been tested if the page is responsive for it has been tested at different screen resolutions.
+    - No errors have been detected in the official html validator: [W3C validator](https://validator.w3.org/nu/?doc=https://patchamama.github.io/PP2-Simple-Video_podcast-generator/)
+    - No error has been detected in the official css validator: [(Jigsaw) validator](https://patchamama.github.io/PP2-Simple-Video_podcast-generator//&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#css)
+    - Performance tests were done using lightouse (devtools) in chrome and the data returned is relative good.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+![results](https://github.com/patchamama/PP2-Simple-Video_podcast-generator/blob/main/doc/PP2-Simple-Video_podcast-generator/doc/performance.png)
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+### Unfixed Bugs
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+At the moment no bugs have been detected but it is necessary to increase the possibilities of testing the tool on different devices.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+## Deployment
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+The project has been completely developed based on a template from the [Code Institute](https://github.com/Code-Institute-Org/gitpod-full-template) in github and after the replication, gitpod has been used as an online IDE that allows updates to be made in github. To deploy the application, got here to the "Settings" section over right > left menu "Pages" and from here you can access directly to the link: https://patchamama.github.io/PP2-Simple-Video_podcast-generator/ 
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+## Credits 
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+- The images in the gallery section and the header were taken from the site: https://www.pexels.com/
+- Menu Icons and sections are from: https://fontawesome.com/
+- As part of the learning and test-error process, much of the knowledge practised here is a result of the exercises and ideas learned in the [Code institute](https://codeinstitute.net) training period and adapted to my needs.
+- To the html and css formater was using: https://codebeautify.org/
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+All photos are open source licensed.
