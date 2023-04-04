@@ -71,7 +71,7 @@ function setDataInHtml(datapos) {
 
 
 /**
-* Reset al the info selected (preview-info) >no audio and images selected
+* Reset all the info selected (preview-info) >no audio and images selected
 * when the complete dataset is changed
 */
 function resetPreview(fullreset) {
@@ -199,7 +199,7 @@ function insertImgSelectedInTime(vsrc, vtime) {
 // }
 
 /**
-*Update the results generate (command line) after any change done...
+* Update the results generate (command line) after any change done...
 */
 function showResults() {
     if (vdebug) {
@@ -287,7 +287,7 @@ function showResults() {
     }
 
 /**
-*Show all the preselected images in image-index bar
+* Show all the preselected images in image-index bar
 */
 function showAllImageIndex() {
     if (vdebug) {
@@ -432,7 +432,7 @@ function updateImageAt(velem, vimage, vtime, updateTime) {
 
 
 /**
-*Delete all the imgs selected and regenerate with the sequence of the present imgs every x secs
+* Delete all the imgs selected and regenerate with the sequence of the present imgs every x secs
 */
 function autoGenSec(velem) {
     if (vdebug) {
@@ -469,7 +469,7 @@ function autoGenSec(velem) {
 
 
 /**
-*Play the audio selected in the listbox
+* Play the audio selected in the listbox
 */
 function playnow(vsrc) {
     if (vdebug) {
@@ -559,7 +559,7 @@ function getImgIndexActiveAtCurrentTime() {
 }
 
 /**
-*Check if the time of the player correspond with a new imag and
+* Check if the time of the player correspond with a new imag and
 * update the image in the main panel (preview-image)
 */
 function searchAndUpdateImgAtNewTime(vplayer) {
