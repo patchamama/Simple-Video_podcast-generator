@@ -68,7 +68,7 @@ The project has been completely developed based on a template from the [Code Ins
 - The sample images used are from: https://www.pexels.com/
 - Menu Icons and sections are from: https://fontawesome.com/
 - Much of the knowledge practised here is a result of the exercises and ideas learned in the [Code institute](https://codeinstitute.net) training period and adapted to my needs. 
-- he fonts used are from google font (Lora & Montserrat) as can be seen in the source code: https://fonts.googleapis.com
+- he fonts used are from google font (Lora & Montserrat) as can be seen in the source code: https://fonts.google.com/
 - To the html and css formater was using: https://codebeautify.org/
 - To make corrections with margins and force word wrap through CSS:  https://stackoverflow.com/questions/18891755/force-word-wrap-through-css
 - The audios used in Spanish are from a joint work done with a friend (María Magdalena) during the pandemic for the creation of a podcast. The audios are from two short stories from the book "La vaca que lloraba" by Ajahn Brahm.
