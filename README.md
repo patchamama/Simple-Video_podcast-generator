@@ -46,7 +46,7 @@ To connect the images with the audio has been defined:
     - No error has been detected in the official css validator: [(Jigsaw) validator](https://patchamama.github.io/PP2-Simple-Video_podcast-generator//&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en#css)
     - Performance tests were done using lightouse (devtools) in chrome and the data returned is relative good.
 
-![results](https://github.com/patchamama/PP2-Simple-Video_podcast-generator/blob/main/doc/PP2-Simple-Video_podcast-generator/doc/performance.png)
+![results](https://github.com/patchamama/PP2-Simple-Video_podcast-generator/blob/main/doc/performance.png)
 
 
 ### Unfixed Bugs

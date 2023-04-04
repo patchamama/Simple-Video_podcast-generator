@@ -232,7 +232,7 @@ function showResults() {
         `;
     }
 
-    vresultsDiv.innerHTML = "";
+    vresultsDiv.innerHTML = '<div class="command-line">';
     vwithFilters = ((document.getElementById("use-imgreadjust").checked) || (document.getElementById("use-effects").checked));
 
     vresultsDiv.innerHTML += `ffmpeg -y \\<br>`;
@@ -280,7 +280,8 @@ function showResults() {
         -i <span class="emphasis-filename">"${vaudiofile}"</span> \\<br>
         -filter_complex \\<br>
         "${vfiltercomplex}${vfiltercomplexPost}concat=n=${imagesSelected.length}:v=1:a=0,format=yuv420p[v]" -map "[v]" -map ${imagesSelected.length}:a -shortest -movflags +faststart <span class="emphasis-filename">"video.mp4"</span><br>`;
-}
+    vresultsDiv.innerHTML += "</div>";
+    }
 
 /**
 *Show all the preselected images in image-index bar

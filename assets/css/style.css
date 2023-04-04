@@ -137,9 +137,18 @@ html {
     text-align: left;
     width: 600px;
   }
+
+  .command-line {
+    border: 1px dotted;
+    overflow: scroll; 
+    width: 400px;
+  }
   
   /* Center the head-titles-section names and contact-info */
   @media screen and (max-width: 1200px) {
+    #header {
+      background-image: none;
+    }
     #audio-preview {
       width: 500px;
     }
@@ -153,17 +162,15 @@ html {
   
   /* Center the head-titles-section names and contact-info */
   @media screen and (max-width: 800px) {
+    #header {
+      height: 18vh;
+    }
     .menu-text {
       display: none;
     }
     .icon-control {
       font-size: 15px;
     }
-  
-    #header {
-      height: 18vh;
-    }
-  
     .left-panel {
       height: 150px;
       overflow: auto;
