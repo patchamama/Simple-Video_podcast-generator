@@ -37,9 +37,11 @@ To connect the images with the audio has been defined:
 ### Features Left to Implement
 
   - Add the possibility of integrating the application with a backend and a program such as php, python, nodejs, that allows to upload the multimedia files to a server and use the script on it. 
+  - Add other online video generator options (mencoder).
 
 ## Testing 
 
+  - It would be good to test a larger number of data (audios and videos) to better test the performance and correct possible errors not seen due to the small size of the data sample.
   - To avoid errors, the page has been tested with several browsers on different operating systems and devices.
   - It has been tested if the page is responsive for it has been tested at different screen resolutions.
     - No errors have been detected in the official html validator: [W3C validator](https://validator.w3.org/nu/?doc=https://patchamama.github.io/PP2-Simple-Video_podcast-generator/)
@@ -59,9 +61,12 @@ The project has been completely developed based on a template from the [Code Ins
 
 ## Credits 
 
-- The images in the gallery section and the header were taken from the site: https://www.pexels.com/
+- The sample images used are from: https://www.pexels.com/
 - Menu Icons and sections are from: https://fontawesome.com/
-- As part of the learning and test-error process, much of the knowledge practised here is a result of the exercises and ideas learned in the [Code institute](https://codeinstitute.net) training period and adapted to my needs.
+- Much of the knowledge practised here is a result of the exercises and ideas learned in the [Code institute](https://codeinstitute.net) training period and adapted to my needs. 
 - To the html and css formater was using: https://codebeautify.org/
+- To make corrections with margins and force word wrap through CSS:  https://stackoverflow.com/questions/18891755/force-word-wrap-through-css
+- The audios used in Spanish are from a joint work done with a friend (María Magdalena) during the pandemic for the creation of a podcast. The audios are from two short stories from the book "La vaca que lloraba" by Ajahn Brahm.
+- The image used when there is not images selected is from: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png
 
 All photos are open source licensed.
