@@ -32,7 +32,7 @@ To connect the images with the audio has been defined:
   - Section that integrates the audio and the images (in the center of the page) that allows to visualize and choose each previously selected image and to change its position, delete it or insert new images.
 
 ### Result section
-  - In this section, the "command line" is generated to be executed (msdos, terminal, ...) and generate the desired final video.
+  - In this section, the "command line" is generated to be executed (terminal) and generate the desired final video.
 
 ### Features Left to Implement
 

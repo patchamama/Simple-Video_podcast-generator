@@ -4,12 +4,9 @@ html {
   }
   
   #header {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background: url("../images/cover.jpg");
+    background: url("../images/cover.jpg") no-repeat center center fixed;
     border-bottom: 1px dotted;
-    height: 20vh;
+    height: 18vh;
     width: 100%;
   }
   
