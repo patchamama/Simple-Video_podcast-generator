@@ -25,7 +25,7 @@ To connect the images with the audio has been defined:
 ### Audio section
   - Section with the audio to be selected with a player (in the upper center). It allows you to play the audio and move with the status bar, to every direct and desired position of the audio.
 
-### Work section
+### Images section
   - Candidate images to be selected (left panel). 
 
 ### Work section
