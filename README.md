@@ -2,7 +2,7 @@
 
 Welcome to my second project of the [Code institute](https://codeinstitute.net)!
 
-I'm happy to meet my second challenge in JavaScript programming (+html+css). To meet my challenge I have chosen to create a web tool that allows me to automate the generation of "lines of commands" to join an audio with several images and make a video, that can be uploaded later to YouTube or other video hosting platforms. The command line executes the program "ffmpeg" with several parameters that specify the name of the images to insert in the video, at what moment each image is inserted (time), and the audio that composes it.
+I'm happy to meet my second challenge in JavaScript programming (+html+css). To meet my challenge I have chosen to create a web tool that allows me to automate the generation of "lines of commands" to join an audio with several images and make a video, that can be uploaded later to YouTube or other video hosting platforms. The command line executes the program `ffmpeg` with several parameters that specify the name of the images to insert in the video, at what moment each image is inserted (time), and the audio that composes it.
 
 
 ![Gallery Example](https://github.com/patchamama/PP2-Simple-Video_podcast-generator/blob/main/doc/PP2-screenshot.png)
@@ -36,7 +36,7 @@ To connect the images with the audio has been defined some sections with a diffe
 
 ### Features Left to Implement
 
-  - Add the possibility of integrating the application with a backend and a script programmed (PHP, python, nodeJS) that allows to upload the multimedia files to the server and use this script on it. 
+  - Add the possibility of integrating the application with a backend and a script programmed (PHP, Python, nodeJS) that allows to upload the multimedia files to the server and use of this script on it. 
   - Add other online video generator options (mencoder).
 
 ## Testing 
@@ -61,7 +61,7 @@ At the moment no bugs have been detected but it is necessary to increase the pos
 
 ## Deployment
 
-The project has been completely developed based on a template from the [Code Institute](https://github.com/Code-Institute-Org/gitpod-full-template) in github and after the replication, gitpod has been used as an online IDE that allows updates to be made in GitHub. To deploy the application, go here (this page) to the "Settings" section over right > left menu "Pages" and from here you can access directly the [link](https://patchamama.github.io/Simple-Video_podcast-generator).
+The project has been completely developed based on a template from the [Code Institute](https://github.com/Code-Institute-Org/gitpod-full-template) in GitHub and after the replication, gitpod has been used as an online IDE that allows updates to be made in GitHub. To deploy the application, go here (this page) to the "Settings" section over right > left menu "Pages" and from here you can access directly the [link](https://patchamama.github.io/Simple-Video_podcast-generator).
 
 ## Credits 
 
